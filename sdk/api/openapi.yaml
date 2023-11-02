@@ -1,0 +1,3159 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@finbourne.com
+    name: FINBOURNE Technology
+    url: https://www.finbourne.com
+  termsOfService: https://www.finbourne.com/legal/terms-conditions
+  title: FINBOURNE ConfigurationService API
+  version: 0.1.473
+  x-logo:
+    url: https://www.lusid.com/app/assets/logo_white.png
+    backgroundColor: '#415464'
+servers:
+- url: https://fbn-ci.lusid.com/configuration
+security:
+- {}
+tags:
+- description: Metadata about the application
+  name: Application Metadata
+- description: Methods for interacting with the main features of the Configuration
+    Service
+  name: ConfigurationSets
+paths:
+  /api/metadata/access/resources:
+    get:
+      description: Get the comprehensive set of resources that are available for access
+        control
+      operationId: ListAccessControlledResources
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] ListAccessControlledResources: Get resources available\
+        \ for access control"
+      tags:
+      - Application Metadata
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/sets:
+    get:
+      operationId: ListConfigurationSets
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                values:
+                - id:
+                    scope: official
+                    code: system-a-config
+                  type: shared
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSetSummary'
+            application/json:
+              example:
+                values:
+                - id:
+                    scope: official
+                    code: system-a-config
+                  type: shared
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSetSummary'
+            text/json:
+              example:
+                values:
+                - id:
+                    scope: official
+                    code: system-a-config
+                  type: shared
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSetSummary'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] ListConfigurationSets: List all configuration sets\
+        \ summaries (I.e. list of scope/code combinations available)"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    post:
+      operationId: CreateConfigurationSet
+      parameters:
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              id:
+                scope: official
+                code: system-a-config
+              type: shared
+              description: All the config related to System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationSet'
+          application/json:
+            example:
+              id:
+                scope: official
+                code: system-a-config
+              type: shared
+              description: All the config related to System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationSet'
+          text/json:
+            example:
+              id:
+                scope: official
+                code: system-a-config
+              type: shared
+              description: All the config related to System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationSet'
+          application/*+json:
+            example:
+              id:
+                scope: official
+                code: system-a-config
+              type: shared
+              description: All the config related to System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationSet'
+        description: The data to create a configuration set
+        required: true
+      responses:
+        "201":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] CreateConfigurationSet: Create a configuration set"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/sets/personal/me:
+    delete:
+      operationId: DeleteAccessToken
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[DEPRECATED] DeleteAccessToken: Delete any stored Personal Access\
+        \ Token for the current user"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: Deprecated
+      x-accepts: application/json
+    head:
+      operationId: CheckAccessTokenExists
+      responses:
+        "200":
+          description: The Personal Access Token exists
+        "404":
+          description: The Personal Access Token does not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[DEPRECATED] CheckAccessTokenExists: Check the Personal Access Token\
+        \ exists for the current user"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: Deprecated
+      x-accepts: application/json
+    put:
+      operationId: GenerateAccessToken
+      parameters:
+      - description: "action=regenerate = Even if an existing parameter exists, forcibly\
+          \ regenerate a new one (deleting the old)\r\naction=ensure = If no parameter\
+          \ exists, create one. If one does already exist, verify that it is still\
+          \ valid (call a service?), and if so, return it. If it is not still valid,\
+          \ then regenerate a new one.\r\naction=default = If a parameter exists,\
+          \ return it. If not then create one. If this parameter is not provided,\
+          \ this is the default behaviour."
+        explode: true
+        in: query
+        name: action
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                value: '**********'
+                type: Secret
+                description: An access token representing the current user
+                ref: config://personal/me/012345
+              schema:
+                $ref: '#/components/schemas/PersonalAccessToken'
+            application/json:
+              example:
+                value: '**********'
+                type: Secret
+                description: An access token representing the current user
+                ref: config://personal/me/012345
+              schema:
+                $ref: '#/components/schemas/PersonalAccessToken'
+            text/json:
+              example:
+                value: '**********'
+                type: Secret
+                description: An access token representing the current user
+                ref: config://personal/me/012345
+              schema:
+                $ref: '#/components/schemas/PersonalAccessToken'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[DEPRECATED] GenerateAccessToken: Generate a Personal Access Token\
+        \ for the current user and stores it in the me token"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: Deprecated
+      x-accepts: application/json
+  /api/sets/system/{code}:
+    get:
+      operationId: GetSystemConfigurationSets
+      parameters:
+      - description: The code that identifies a system configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: Whether to reveal the secrets
+        explode: true
+        in: query
+        name: reveal
+        required: false
+        schema:
+          type: boolean
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://shared/system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: shared
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://personal//system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: personal
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSet'
+            application/json:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://shared/system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: shared
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://personal//system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: personal
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSet'
+            text/json:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://shared/system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: shared
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System configuration A
+                  items:
+                  - key: password
+                    value: a super secret password
+                    valueType: text
+                    isSecret: true
+                    ref: config://personal//system/system-config-set-a/password
+                  id:
+                    scope: system
+                    code: system-config-set-a
+                  type: personal
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationSet'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No system configuration set exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetSystemConfigurationSets: Get the specified system\
+        \ configuration sets, including all their associated metadata. By default\
+        \ secrets will not be revealed\r\nAll users have access to this endpoint"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/sets/system/{code}/items/{key}:
+    get:
+      operationId: GetSystemConfigurationItems
+      parameters:
+      - description: The code that identifies a system configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The key that identifies a system configuration item
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[^_][a-zA-Z0-9\\-_]*$"
+          type: string
+        style: simple
+      - description: Whether to reveal the secrets
+        explode: true
+        in: query
+        name: reveal
+        required: false
+        schema:
+          type: boolean
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/system/system-config-item-a/password
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://personal//system/system-config-item-a/password
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationItem'
+            application/json:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/system/system-config-item-a/password
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://personal//system/system-config-item-a/password
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationItem'
+            text/json:
+              example:
+                values:
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Shared System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/system/system-config-item-a/password
+                - createdAt: 0001-01-01T00:00:00.0000000+00:00
+                  createdBy: user
+                  lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                  lastModifiedBy: user
+                  description: Personal System item A
+                  key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://personal//system/system-config-item-a/password
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfConfigurationItem'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No system configuration item exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetSystemConfigurationItems: Get the specific system\
+        \ configuration items within a system set\r\nAll users have access to this\
+        \ endpoint"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/sets/{type}/{scope}/{code}:
+    delete:
+      operationId: DeleteConfigurationSet
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration set exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] DeleteConfigurationSet: Deletes a configuration set\
+        \ along with all their configuration items"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    get:
+      operationId: GetConfigurationSet
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: Whether to reveal the secrets. This is only available when the
+          userId query setting has not been specified.
+        explode: true
+        in: query
+        name: reveal
+        required: false
+        schema:
+          type: boolean
+        style: form
+        x-nullable: true
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration set exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetConfigurationSet: Get a configuration set, including\
+        \ all the associated metadata. By default secrets will not be revealed"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    put:
+      operationId: UpdateConfigurationSet
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              description: The group of configurations related to System A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationSet'
+          application/json:
+            example:
+              description: The group of configurations related to System A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationSet'
+          text/json:
+            example:
+              description: The group of configurations related to System A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationSet'
+          application/*+json:
+            example:
+              description: The group of configurations related to System A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationSet'
+        description: The data to update a configuration set
+        required: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration set exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] UpdateConfigurationSet: Update the description of a\
+        \ configuration set"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/sets/{type}/{scope}/{code}/items:
+    post:
+      operationId: AddConfigurationToSet
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              key: password
+              value: a super secret password
+              valueType: text
+              isSecret: false
+              description: Password for System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationItem'
+          application/json:
+            example:
+              key: password
+              value: a super secret password
+              valueType: text
+              isSecret: false
+              description: Password for System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationItem'
+          text/json:
+            example:
+              key: password
+              value: a super secret password
+              valueType: text
+              isSecret: false
+              description: Password for System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationItem'
+          application/*+json:
+            example:
+              key: password
+              value: a super secret password
+              valueType: text
+              isSecret: false
+              description: Password for System A
+            schema:
+              $ref: '#/components/schemas/CreateConfigurationItem'
+        description: The data to create a configuration item
+        required: true
+      responses:
+        "201":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: All the config related to System A
+                items:
+                - key: password
+                  value: a super secret password
+                  valueType: text
+                  isSecret: true
+                  ref: config://shared/official/system-a-config/password
+                id:
+                  scope: official
+                  code: system-a-config
+                type: shared
+              schema:
+                $ref: '#/components/schemas/ConfigurationSet'
+          description: Created
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration set exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] AddConfigurationToSet: Add a configuration item to\
+        \ an existing set"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /api/sets/{type}/{scope}/{code}/items/{key}:
+    delete:
+      operationId: DeleteConfigurationItem
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The key that identifies a configuration item
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[^_][a-zA-Z0-9\\-_]*$"
+          type: string
+        style: simple
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration item exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] DeleteConfigurationItem: Remove the specified configuration\
+        \ item from the specified configuration set"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    get:
+      operationId: GetConfigurationItem
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The key that identifies a configuration item
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[^_][a-zA-Z0-9\\-_]*$"
+          type: string
+        style: simple
+      - description: Whether to reveal the secrets. This is only available when the
+          userId query setting has not been specified.
+        explode: true
+        in: query
+        name: reveal
+        required: false
+        schema:
+          type: boolean
+        style: form
+        x-nullable: true
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration item exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] GetConfigurationItem: Get the specific configuration\
+        \ item within an existing set"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+    put:
+      operationId: UpdateConfigurationItem
+      parameters:
+      - description: Whether the configuration set is Personal or Shared
+        explode: false
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The scope that identifies a configuration set
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a configuration set
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The key that identifies a configuration item
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          maxLength: 256
+          minLength: 1
+          pattern: "^[^_][a-zA-Z0-9\\-_]*$"
+          type: string
+        style: simple
+      - description: Feature that allows Administrators to administer personal settings
+          (but never reveal the value of secrets) of a specific user.
+        explode: true
+        in: query
+        name: userId
+        required: false
+        schema:
+          maxLength: 64
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              value: updated password
+              description: Password for system A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationItem'
+          application/json:
+            example:
+              value: updated password
+              description: Password for system A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationItem'
+          text/json:
+            example:
+              value: updated password
+              description: Password for system A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationItem'
+          application/*+json:
+            example:
+              value: updated password
+              description: Password for system A and B
+            schema:
+              $ref: '#/components/schemas/UpdateConfigurationItem'
+        description: The data to update a configuration item
+        required: true
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+            application/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+            text/json:
+              example:
+                createdAt: 0001-01-01T00:00:00.0000000+00:00
+                createdBy: user
+                lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
+                lastModifiedBy: user
+                description: a super secret password
+                key: password
+                value: Password for System A
+                valueType: text
+                isSecret: true
+                ref: config://shared/official/system-a-config/password
+              schema:
+                $ref: '#/components/schemas/ConfigurationItem'
+          description: Success
+        "400":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: No configuration item exists with the provided identifiers
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] UpdateConfigurationItem: Update a configuration item's\
+        \ value and/or description"
+      tags:
+      - ConfigurationSets
+      x-fbn-apistatus: EarlyAccess
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+components:
+  schemas:
+    AccessControlledAction:
+      additionalProperties: false
+      example:
+        limitedSet:
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        description: description
+        action:
+          activity: activity
+          scope: scope
+          entity: entity
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+      properties:
+        description:
+          minLength: 1
+          type: string
+        action:
+          $ref: '#/components/schemas/ActionId'
+        limitedSet:
+          items:
+            $ref: '#/components/schemas/IdSelectorDefinition'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - action
+      - description
+      type: object
+    AccessControlledResource:
+      additionalProperties: false
+      example:
+        application: application
+        name: name
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        actions:
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        identifierParts:
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+      properties:
+        application:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          minLength: 1
+          type: string
+        actions:
+          items:
+            $ref: '#/components/schemas/AccessControlledAction'
+          type: array
+        identifierParts:
+          items:
+            $ref: '#/components/schemas/IdentifierPartSchema'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - actions
+      - description
+      type: object
+    ActionId:
+      additionalProperties: false
+      example:
+        activity: activity
+        scope: scope
+        entity: entity
+      properties:
+        scope:
+          maxLength: 100
+          minLength: 3
+          type: string
+        activity:
+          maxLength: 25
+          minLength: 3
+          type: string
+        entity:
+          maxLength: 25
+          minLength: 3
+          type: string
+      required:
+      - activity
+      - entity
+      - scope
+      type: object
+    ConfigurationItem:
+      additionalProperties: false
+      description: The full version of the configuration item
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        isSecret: true
+        ref: ref
+        lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+        createdBy: createdBy
+        lastModifiedBy: lastModifiedBy
+        valueType: valueType
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        value: value
+        key: key
+      properties:
+        createdAt:
+          description: The date referring to the creation date of the configuration
+            item
+          format: date-time
+          type: string
+        createdBy:
+          description: Who created the configuration item
+          minLength: 1
+          type: string
+        lastModifiedAt:
+          description: The date referring to the date when the configuration item
+            was last modified
+          format: date-time
+          type: string
+        lastModifiedBy:
+          description: Who modified the configuration item most recently
+          minLength: 1
+          type: string
+        description:
+          description: Describes the configuration item
+          nullable: true
+          type: string
+        key:
+          description: The key which identifies the configuration item
+          minLength: 1
+          type: string
+        value:
+          description: The value of the configuration item
+          minLength: 1
+          type: string
+        valueType:
+          description: The type of the configuration item's value
+          minLength: 1
+          type: string
+        isSecret:
+          description: Defines whether or not the value is a secret.
+          type: boolean
+        ref:
+          description: The reference to the configuration item
+          minLength: 1
+          readOnly: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - createdAt
+      - createdBy
+      - isSecret
+      - key
+      - lastModifiedAt
+      - lastModifiedBy
+      - ref
+      - value
+      - valueType
+      type: object
+    ConfigurationItemSummary:
+      additionalProperties: false
+      description: A single configuration object
+      example:
+        isSecret: true
+        ref: ref
+        valueType: valueType
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        value: value
+        key: key
+      properties:
+        key:
+          description: The key which identifies the configuration item
+          minLength: 1
+          type: string
+        value:
+          description: The value of the configuration item
+          minLength: 1
+          type: string
+        valueType:
+          description: The type of the configuration item's value
+          minLength: 1
+          type: string
+        isSecret:
+          description: Defines whether or not the value is a secret.
+          type: boolean
+        ref:
+          description: The reference to the configuration item
+          minLength: 1
+          readOnly: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - isSecret
+      - key
+      - ref
+      - value
+      - valueType
+      type: object
+    ConfigurationSet:
+      additionalProperties: false
+      description: The full version of the configuration set
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+        createdBy: createdBy
+        lastModifiedBy: lastModifiedBy
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        id:
+          code: code
+          scope: scope
+        type: type
+        items:
+        - isSecret: true
+          ref: ref
+          valueType: valueType
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          value: value
+          key: key
+        - isSecret: true
+          ref: ref
+          valueType: valueType
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          value: value
+          key: key
+      properties:
+        createdAt:
+          description: The date referring to the creation date of the configuration
+            set
+          format: date-time
+          type: string
+        createdBy:
+          description: Who created the configuration set
+          minLength: 1
+          type: string
+        lastModifiedAt:
+          description: The date referring to the date when the configuration set was
+            last modified
+          format: date-time
+          type: string
+        lastModifiedBy:
+          description: Who modified the configuration set most recently
+          minLength: 1
+          type: string
+        description:
+          description: Describes the configuration set
+          nullable: true
+          type: string
+        items:
+          description: The collection of the configuration items that this set contains.
+          items:
+            $ref: '#/components/schemas/ConfigurationItemSummary'
+          nullable: true
+          type: array
+        id:
+          $ref: '#/components/schemas/ResourceId'
+        type:
+          description: The type (personal or shared) of the configuration set
+          minLength: 1
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - createdAt
+      - createdBy
+      - id
+      - lastModifiedAt
+      - lastModifiedBy
+      - type
+      type: object
+    ConfigurationSetSummary:
+      additionalProperties: false
+      description: A group of configuration items
+      example:
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        id:
+          code: code
+          scope: scope
+        type: type
+      properties:
+        id:
+          $ref: '#/components/schemas/ResourceId'
+        type:
+          description: The type (personal or shared) of the configuration set
+          minLength: 1
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - id
+      - type
+      type: object
+    CreateConfigurationItem:
+      additionalProperties: false
+      description: The information required to create a configuration item
+      example:
+        isSecret: true
+        valueType: valueType
+        description: description
+        value: value
+        key: key
+      properties:
+        key:
+          description: The key of the new configuration item
+          maxLength: 256
+          minLength: 1
+          pattern: "^[^_][a-zA-Z0-9\\-_]*$"
+          type: string
+        value:
+          description: "The value of the new configuration item\r\n \r\nThe maximum\
+            \ size for secrets is 4KB and for text values is 2MB"
+          maxLength: 2000000
+          minLength: 1
+          pattern: (?s).*
+          type: string
+        valueType:
+          description: "The type (text, number, boolean, textCollection, numberCollection)\
+            \ of the new configuration item's value.\r\nThe validation for each type\
+            \ is as follows:\r\n- text: any value\r\n- number: double (e.g. \"5.5\"\
+            )\r\n- boolean: true/false\r\n- textCollection: comma separated list (e.g.\
+            \ \"a,b,c\")\r\n- numberCollection: comma separated list of doubles (e.g.\
+            \ \"1,2,3\")"
+          nullable: true
+          type: string
+        isSecret:
+          description: Defines whether or not the value is a secret
+          type: boolean
+        description:
+          description: The description of the new configuration item
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - isSecret
+      - key
+      - value
+      type: object
+    CreateConfigurationSet:
+      additionalProperties: false
+      description: The information required to create a new configuration set
+      example:
+        description: description
+        id:
+          code: code
+          scope: scope
+        type: type
+      properties:
+        id:
+          $ref: '#/components/schemas/ResourceId'
+        type:
+          description: The type (personal or shared) of the new configuration set
+          minLength: 1
+          type: string
+        description:
+          description: The description of the new configuration set
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    IdentifierPartSchema:
+      additionalProperties: false
+      example:
+        displayName: displayName
+        name: name
+        index: 0
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        required: true
+      properties:
+        index:
+          format: int32
+          type: integer
+        name:
+          minLength: 1
+          type: string
+        displayName:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - description
+      - displayName
+      - index
+      - name
+      - required
+      type: object
+    IdSelectorDefinition:
+      additionalProperties: false
+      example:
+        identifier:
+          key: identifier
+        name: name
+        description: description
+        actions:
+        - activity: activity
+          scope: scope
+          entity: entity
+        - activity: activity
+          scope: scope
+          entity: entity
+      properties:
+        identifier:
+          additionalProperties:
+            type: string
+          minLength: 1
+          type: object
+        actions:
+          items:
+            $ref: '#/components/schemas/ActionId'
+          minItems: 1
+          type: array
+        name:
+          maxLength: 100
+          minLength: 0
+          nullable: true
+          type: string
+        description:
+          maxLength: 1024
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - actions
+      - identifier
+      type: object
+    Link:
+      additionalProperties: false
+      example:
+        method: method
+        description: description
+        href: https://openapi-generator.tech
+        relation: relation
+      properties:
+        relation:
+          type: string
+        href:
+          format: uri
+          type: string
+        description:
+          nullable: true
+          type: string
+        method:
+          type: string
+      required:
+      - href
+      - method
+      - relation
+      type: object
+    LusidProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    LusidValidationProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        errors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    PersonalAccessToken:
+      additionalProperties: false
+      description: Representation of a Personal Access Token under a Configuration
+        Item format.
+      example:
+        ref: ref
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        type: type
+        value: value
+      properties:
+        value:
+          description: Value of the Personal Access Token.
+          minLength: 1
+          readOnly: true
+          type: string
+        type:
+          description: The type of the Personal Access Token.
+          minLength: 1
+          readOnly: true
+          type: string
+        description:
+          description: The description of the Personal Access Token.
+          minLength: 1
+          readOnly: true
+          type: string
+        ref:
+          description: The reference to the Personal Access Token
+          minLength: 1
+          readOnly: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - description
+      - ref
+      - type
+      - value
+      type: object
+    ResourceId:
+      additionalProperties: false
+      description: Identifiers of an entity
+      example:
+        code: code
+        scope: scope
+      properties:
+        scope:
+          description: The scope used to identify an entity
+          maxLength: 512
+          minLength: 1
+          type: string
+        code:
+          description: The code used to identify an entity
+          maxLength: 512
+          minLength: 1
+          type: string
+      required:
+      - code
+      - scope
+      type: object
+    ResourceListOfAccessControlledResource:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/AccessControlledResource'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfConfigurationItem:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          isSecret: true
+          ref: ref
+          lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedBy: lastModifiedBy
+          valueType: valueType
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          value: value
+          key: key
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          isSecret: true
+          ref: ref
+          lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedBy: lastModifiedBy
+          valueType: valueType
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          value: value
+          key: key
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ConfigurationItem'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfConfigurationSet:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedBy: lastModifiedBy
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          id:
+            code: code
+            scope: scope
+          type: type
+          items:
+          - isSecret: true
+            ref: ref
+            valueType: valueType
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            value: value
+            key: key
+          - isSecret: true
+            ref: ref
+            valueType: valueType
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            value: value
+            key: key
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          lastModifiedAt: 2000-01-23T04:56:07.000+00:00
+          createdBy: createdBy
+          lastModifiedBy: lastModifiedBy
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          id:
+            code: code
+            scope: scope
+          type: type
+          items:
+          - isSecret: true
+            ref: ref
+            valueType: valueType
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            value: value
+            key: key
+          - isSecret: true
+            ref: ref
+            valueType: valueType
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            value: value
+            key: key
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ConfigurationSet'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfConfigurationSetSummary:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          id:
+            code: code
+            scope: scope
+          type: type
+        - links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          id:
+            code: code
+            scope: scope
+          type: type
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ConfigurationSetSummary'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    UpdateConfigurationItem:
+      additionalProperties: false
+      description: The information required to update a configuration item
+      example:
+        description: description
+        value: value
+      properties:
+        value:
+          description: The new value of the configuration item
+          maxLength: 2000000
+          minLength: 1
+          pattern: (?s).*
+          type: string
+        description:
+          description: The new description of the configuration item
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - value
+      type: object
+    UpdateConfigurationSet:
+      additionalProperties: false
+      description: The information required to update a configuration set
+      example:
+        description: description
+      properties:
+        description:
+          description: The new description of the configuration set
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      type: object
+  securitySchemes:
+    oauth2:
+      description: OAuth2 Implicit Grant
+      flows:
+        implicit:
+          authorizationUrl: https://lusid.okta.com/oauth2/default/v1/authorize
+          scopes: {}
+      type: oauth2
+x-tagGroups:
+  name: API
+  tags:
+  - Application Metadata
+  - ConfigurationSets
+x-group-parameters: true
+
