@@ -32,7 +32,7 @@ public class ApiConfiguration {
     private String clientSecret;
 
     /**
-     * lusid API Url
+     * _configuration API Url
      */
     private String apiUrl;
 
