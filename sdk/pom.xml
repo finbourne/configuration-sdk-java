@@ -5,7 +5,7 @@
     <artifactId>configuration-sdk</artifactId>
     <packaging>jar</packaging>
     <name>configuration-sdk</name>
-    <version>2.0.6</version>
+    <version>2.0.7</version>
     <url>https://github.com/finbourne/configuration-sdk-java</url>
     <description>configuration</description>
     <scm>
