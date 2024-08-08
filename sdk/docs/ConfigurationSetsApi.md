@@ -20,54 +20,64 @@ All URIs are relative to *https://fbn-prd.lusid.com/configuration*
 | [**updateConfigurationSet**](ConfigurationSetsApi.md#updateConfigurationSet) | **PUT** /api/sets/{type}/{scope}/{code} | [EARLY ACCESS] UpdateConfigurationSet: Update the description of a configuration set |
 
 
-<a id="addConfigurationToSet"></a>
-# **addConfigurationToSet**
-> ConfigurationSet addConfigurationToSet(type, scope, code, createConfigurationItem).userId(userId).execute();
+
+## addConfigurationToSet
+
+> ConfigurationSet addConfigurationToSet(type, scope, code, createConfigurationItem, userId)
 
 [EARLY ACCESS] AddConfigurationToSet: Add a configuration item to an existing set
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    CreateConfigurationItem createConfigurationItem = new CreateConfigurationItem(); // CreateConfigurationItem | The data to create a configuration item
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationSet result = apiInstance.addConfigurationToSet(type, scope, code, createConfigurationItem)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#addConfigurationToSet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        CreateConfigurationItem createConfigurationItem = new CreateConfigurationItem(); // CreateConfigurationItem | The data to create a configuration item
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationSet result = apiInstance.addConfigurationToSet(type, scope, code, createConfigurationItem, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#addConfigurationToSet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -81,14 +91,11 @@ public class Example {
 
 [**ConfigurationSet**](ConfigurationSet.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -98,61 +105,71 @@ public class Example {
 | **404** | No configuration set exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="checkAccessTokenExists"></a>
-# **checkAccessTokenExists**
-> checkAccessTokenExists().execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## checkAccessTokenExists
+
+> checkAccessTokenExists()
 
 [DEPRECATED] CheckAccessTokenExists: Check the Personal Access Token exists for the current user
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    try {
-      apiInstance.checkAccessTokenExists()
-            .execute();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#checkAccessTokenExists");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        try {
+            apiInstance.checkAccessTokenExists().execute();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#checkAccessTokenExists");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
 
 null (empty response body)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -161,51 +178,63 @@ null (empty response body)
 | **404** | The Personal Access Token does not exist |  -  |
 | **0** | Error response |  -  |
 
-<a id="createConfigurationSet"></a>
-# **createConfigurationSet**
-> ConfigurationSet createConfigurationSet(createConfigurationSet).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## createConfigurationSet
+
+> ConfigurationSet createConfigurationSet(createConfigurationSet, userId)
 
 [EARLY ACCESS] CreateConfigurationSet: Create a configuration set
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    CreateConfigurationSet createConfigurationSet = new CreateConfigurationSet(); // CreateConfigurationSet | The data to create a configuration set
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationSet result = apiInstance.createConfigurationSet(createConfigurationSet)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#createConfigurationSet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        CreateConfigurationSet createConfigurationSet = new CreateConfigurationSet(); // CreateConfigurationSet | The data to create a configuration set
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationSet result = apiInstance.createConfigurationSet(createConfigurationSet, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#createConfigurationSet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -216,14 +245,11 @@ public class Example {
 
 [**ConfigurationSet**](ConfigurationSet.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -232,61 +258,71 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="deleteAccessToken"></a>
-# **deleteAccessToken**
-> deleteAccessToken().execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteAccessToken
+
+> deleteAccessToken()
 
 [DEPRECATED] DeleteAccessToken: Delete any stored Personal Access Token for the current user
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    try {
-      apiInstance.deleteAccessToken()
-            .execute();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#deleteAccessToken");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        try {
+            apiInstance.deleteAccessToken().execute();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#deleteAccessToken");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
 
 null (empty response body)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -294,53 +330,65 @@ null (empty response body)
 | **204** | No Content |  -  |
 | **0** | Error response |  -  |
 
-<a id="deleteConfigurationItem"></a>
-# **deleteConfigurationItem**
-> deleteConfigurationItem(type, scope, code, key).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteConfigurationItem
+
+> deleteConfigurationItem(type, scope, code, key, userId)
 
 [EARLY ACCESS] DeleteConfigurationItem: Remove the specified configuration item from the specified configuration set
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    String key = "key_example"; // String | The key that identifies a configuration item
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      apiInstance.deleteConfigurationItem(type, scope, code, key)
-            .userId(userId)
-            .execute();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        String key = "key_example"; // String | The key that identifies a configuration item
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            apiInstance.deleteConfigurationItem(type, scope, code, key, userId).execute();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -354,14 +402,11 @@ public class Example {
 
 null (empty response body)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -371,52 +416,64 @@ null (empty response body)
 | **404** | No configuration item exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="deleteConfigurationSet"></a>
-# **deleteConfigurationSet**
-> deleteConfigurationSet(type, scope, code).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## deleteConfigurationSet
+
+> deleteConfigurationSet(type, scope, code, userId)
 
 [EARLY ACCESS] DeleteConfigurationSet: Deletes a configuration set along with all their configuration items
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      apiInstance.deleteConfigurationSet(type, scope, code)
-            .userId(userId)
-            .execute();
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationSet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            apiInstance.deleteConfigurationSet(type, scope, code, userId).execute();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationSet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -429,14 +486,11 @@ public class Example {
 
 null (empty response body)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -446,50 +500,62 @@ null (empty response body)
 | **404** | No configuration set exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="generateAccessToken"></a>
-# **generateAccessToken**
-> PersonalAccessToken generateAccessToken().action(action).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## generateAccessToken
+
+> PersonalAccessToken generateAccessToken(action)
 
 [DEPRECATED] GenerateAccessToken: Generate a Personal Access Token for the current user and stores it in the me token
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String action = "action_example"; // String | action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
-    try {
-      PersonalAccessToken result = apiInstance.generateAccessToken()
-            .action(action)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#generateAccessToken");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String action = "action_example"; // String | action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
+        try {
+            PersonalAccessToken result = apiInstance.generateAccessToken(action).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#generateAccessToken");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -499,14 +565,11 @@ public class Example {
 
 [**PersonalAccessToken**](PersonalAccessToken.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -515,56 +578,67 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="getConfigurationItem"></a>
-# **getConfigurationItem**
-> ConfigurationItem getConfigurationItem(type, scope, code, key).reveal(reveal).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getConfigurationItem
+
+> ConfigurationItem getConfigurationItem(type, scope, code, key, reveal, userId)
 
 [EARLY ACCESS] GetConfigurationItem: Get the specific configuration item within an existing set
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    String key = "key_example"; // String | The key that identifies a configuration item
-    Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationItem result = apiInstance.getConfigurationItem(type, scope, code, key)
-            .reveal(reveal)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#getConfigurationItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        String key = "key_example"; // String | The key that identifies a configuration item
+        Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationItem result = apiInstance.getConfigurationItem(type, scope, code, key, reveal, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#getConfigurationItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -579,14 +653,11 @@ public class Example {
 
 [**ConfigurationItem**](ConfigurationItem.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -596,55 +667,66 @@ public class Example {
 | **404** | No configuration item exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="getConfigurationSet"></a>
-# **getConfigurationSet**
-> ConfigurationSet getConfigurationSet(type, scope, code).reveal(reveal).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getConfigurationSet
+
+> ConfigurationSet getConfigurationSet(type, scope, code, reveal, userId)
 
 [EARLY ACCESS] GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationSet result = apiInstance.getConfigurationSet(type, scope, code)
-            .reveal(reveal)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#getConfigurationSet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationSet result = apiInstance.getConfigurationSet(type, scope, code, reveal, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#getConfigurationSet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -658,14 +740,11 @@ public class Example {
 
 [**ConfigurationSet**](ConfigurationSet.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -675,52 +754,64 @@ public class Example {
 | **404** | No configuration set exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="getSystemConfigurationItems"></a>
-# **getSystemConfigurationItems**
-> ResourceListOfConfigurationItem getSystemConfigurationItems(code, key).reveal(reveal).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getSystemConfigurationItems
+
+> ResourceListOfConfigurationItem getSystemConfigurationItems(code, key, reveal)
 
 [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set  All users have access to this endpoint
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String code = "code_example"; // String | The code that identifies a system configuration set
-    String key = "key_example"; // String | The key that identifies a system configuration item
-    Boolean reveal = true; // Boolean | Whether to reveal the secrets
-    try {
-      ResourceListOfConfigurationItem result = apiInstance.getSystemConfigurationItems(code, key)
-            .reveal(reveal)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#getSystemConfigurationItems");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String code = "code_example"; // String | The code that identifies a system configuration set
+        String key = "key_example"; // String | The key that identifies a system configuration item
+        Boolean reveal = true; // Boolean | Whether to reveal the secrets
+        try {
+            ResourceListOfConfigurationItem result = apiInstance.getSystemConfigurationItems(code, key, reveal).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#getSystemConfigurationItems");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -732,14 +823,11 @@ public class Example {
 
 [**ResourceListOfConfigurationItem**](ResourceListOfConfigurationItem.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -749,51 +837,63 @@ public class Example {
 | **404** | No system configuration item exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="getSystemConfigurationSets"></a>
-# **getSystemConfigurationSets**
-> ResourceListOfConfigurationSet getSystemConfigurationSets(code).reveal(reveal).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## getSystemConfigurationSets
+
+> ResourceListOfConfigurationSet getSystemConfigurationSets(code, reveal)
 
 [EARLY ACCESS] GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String code = "code_example"; // String | The code that identifies a system configuration set
-    Boolean reveal = true; // Boolean | Whether to reveal the secrets
-    try {
-      ResourceListOfConfigurationSet result = apiInstance.getSystemConfigurationSets(code)
-            .reveal(reveal)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#getSystemConfigurationSets");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String code = "code_example"; // String | The code that identifies a system configuration set
+        Boolean reveal = true; // Boolean | Whether to reveal the secrets
+        try {
+            ResourceListOfConfigurationSet result = apiInstance.getSystemConfigurationSets(code, reveal).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#getSystemConfigurationSets");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -804,14 +904,11 @@ public class Example {
 
 [**ResourceListOfConfigurationSet**](ResourceListOfConfigurationSet.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -821,52 +918,63 @@ public class Example {
 | **404** | No system configuration set exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="listConfigurationSets"></a>
-# **listConfigurationSets**
-> ResourceListOfConfigurationSetSummary listConfigurationSets().type(type).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## listConfigurationSets
+
+> ResourceListOfConfigurationSetSummary listConfigurationSets(type, userId)
 
 [EARLY ACCESS] ListConfigurationSets: List all configuration sets summaries (I.e. list of scope/code combinations available)
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ResourceListOfConfigurationSetSummary result = apiInstance.listConfigurationSets()
-            .type(type)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#listConfigurationSets");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ResourceListOfConfigurationSetSummary result = apiInstance.listConfigurationSets(type, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#listConfigurationSets");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -877,14 +985,11 @@ public class Example {
 
 [**ResourceListOfConfigurationSetSummary**](ResourceListOfConfigurationSetSummary.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: Not defined
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -893,55 +998,67 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **0** | Error response |  -  |
 
-<a id="updateConfigurationItem"></a>
-# **updateConfigurationItem**
-> ConfigurationItem updateConfigurationItem(type, scope, code, key, updateConfigurationItem).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## updateConfigurationItem
+
+> ConfigurationItem updateConfigurationItem(type, scope, code, key, updateConfigurationItem, userId)
 
 [EARLY ACCESS] UpdateConfigurationItem: Update a configuration item&#39;s value and/or description
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    String key = "key_example"; // String | The key that identifies a configuration item
-    UpdateConfigurationItem updateConfigurationItem = new UpdateConfigurationItem(); // UpdateConfigurationItem | The data to update a configuration item
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationItem result = apiInstance.updateConfigurationItem(type, scope, code, key, updateConfigurationItem)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#updateConfigurationItem");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        String key = "key_example"; // String | The key that identifies a configuration item
+        UpdateConfigurationItem updateConfigurationItem = new UpdateConfigurationItem(); // UpdateConfigurationItem | The data to update a configuration item
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationItem result = apiInstance.updateConfigurationItem(type, scope, code, key, updateConfigurationItem, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#updateConfigurationItem");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -956,14 +1073,11 @@ public class Example {
 
 [**ConfigurationItem**](ConfigurationItem.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -973,54 +1087,66 @@ public class Example {
 | **404** | No configuration item exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
 
-<a id="updateConfigurationSet"></a>
-# **updateConfigurationSet**
-> ConfigurationSet updateConfigurationSet(type, scope, code, updateConfigurationSet).userId(userId).execute();
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
+
+
+## updateConfigurationSet
+
+> ConfigurationSet updateConfigurationSet(type, scope, code, updateConfigurationSet, userId)
 
 [EARLY ACCESS] UpdateConfigurationSet: Update the description of a configuration set
 
 ### Example
+
 ```java
-// Import classes:
-import com.finbourne.configuration.ApiClient;
-import com.finbourne.configuration.ApiException;
-import com.finbourne.configuration.Configuration;
-import com.finbourne.configuration.auth.*;
-import com.finbourne.configuration.models.*;
+import com.finbourne.configuration.model.*;
 import com.finbourne.configuration.api.ConfigurationSetsApi;
+import com.finbourne.configuration.extensions.ApiConfigurationException;
+import com.finbourne.configuration.extensions.ApiFactoryBuilder;
+import com.finbourne.configuration.extensions.auth.FinbourneTokenException;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://fbn-prd.lusid.com/configuration");
-    
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
-    ConfigurationSetsApi apiInstance = new ConfigurationSetsApi(defaultClient);
-    String type = "type_example"; // String | Whether the configuration set is Personal or Shared
-    String scope = "scope_example"; // String | The scope that identifies a configuration set
-    String code = "code_example"; // String | The code that identifies a configuration set
-    UpdateConfigurationSet updateConfigurationSet = new UpdateConfigurationSet(); // UpdateConfigurationSet | The data to update a configuration set
-    String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
-    try {
-      ConfigurationSet result = apiInstance.updateConfigurationSet(type, scope, code, updateConfigurationSet)
-            .userId(userId)
-            .execute();
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConfigurationSetsApi#updateConfigurationSet");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
+public class ConfigurationSetsApiExample {
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException, ApiConfigurationException, FinbourneTokenException {
+        String fileName = "secrets.json";
+        try(PrintWriter writer = new PrintWriter(fileName, "UTF-8")) {
+          writer.write("{" +
+            "\"api\": {" +
+            "    \"tokenUrl\": \"<your-token-url>\"," +
+            "    \"_configurationUrl\": \"https://<your-domain>.lusid.com/configuration\"," +
+            "    \"username\": \"<your-username>\"," +
+            "    \"password\": \"<your-password>\"," +
+            "    \"clientId\": \"<your-client-id>\"," +
+            "    \"clientSecret\": \"<your-client-secret>\"" +
+            "  }" +
+            "}");
+        }
+
+        ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
+        String type = "type_example"; // String | Whether the configuration set is Personal or Shared
+        String scope = "scope_example"; // String | The scope that identifies a configuration set
+        String code = "code_example"; // String | The code that identifies a configuration set
+        UpdateConfigurationSet updateConfigurationSet = new UpdateConfigurationSet(); // UpdateConfigurationSet | The data to update a configuration set
+        String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
+        try {
+            ConfigurationSet result = apiInstance.updateConfigurationSet(type, scope, code, updateConfigurationSet, userId).execute();
+            System.out.println(result.toJson());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConfigurationSetsApi#updateConfigurationSet");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
     }
-  }
 }
 ```
 
 ### Parameters
+
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
@@ -1034,14 +1160,11 @@ public class Example {
 
 [**ConfigurationSet**](ConfigurationSet.md)
 
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
- - **Accept**: text/plain, application/json, text/json
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
+- **Accept**: text/plain, application/json, text/json
+
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1050,4 +1173,6 @@ public class Example {
 | **400** | The details of the input related failure |  -  |
 | **404** | No configuration set exists with the provided identifiers |  -  |
 | **0** | Error response |  -  |
+
+[Back to top](#) &#8226; [Back to API list](../README.md#documentation-for-api-endpoints) &#8226; [Back to Model list](../README.md#documentation-for-models) &#8226; [Back to README](../README.md)
 
