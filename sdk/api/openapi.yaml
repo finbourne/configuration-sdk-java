@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.542
+  version: 0.1.543
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -559,12 +559,12 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EARLY ACCESS] GetSystemConfigurationSets: Get the specified system\
-        \ configuration sets, including all their associated metadata. By default\
-        \ secrets will not be revealed\r\nAll users have access to this endpoint"
+      summary: "GetSystemConfigurationSets: Get the specified system configuration\
+        \ sets, including all their associated metadata. By default secrets will not\
+        \ be revealed\r\nAll users have access to this endpoint"
       tags:
       - ConfigurationSets
-      x-fbn-apistatus: EarlyAccess
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/sets/system/{code}/items/{key}:
     get:
@@ -957,11 +957,11 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EARLY ACCESS] GetConfigurationSet: Get a configuration set, including\
-        \ all the associated metadata. By default secrets will not be revealed"
+      summary: "GetConfigurationSet: Get a configuration set, including all the associated\
+        \ metadata. By default secrets will not be revealed"
       tags:
       - ConfigurationSets
-      x-fbn-apistatus: EarlyAccess
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     put:
       operationId: UpdateConfigurationSet
@@ -1560,11 +1560,11 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EARLY ACCESS] GetConfigurationItem: Get the specific configuration\
-        \ item within an existing set"
+      summary: "GetConfigurationItem: Get the specific configuration item within an\
+        \ existing set"
       tags:
       - ConfigurationSets
-      x-fbn-apistatus: EarlyAccess
+      x-fbn-apistatus: Stable
       x-accepts: application/json
     put:
       operationId: UpdateConfigurationItem

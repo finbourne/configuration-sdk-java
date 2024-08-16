@@ -11,10 +11,10 @@ All URIs are relative to *https://fbn-prd.lusid.com/configuration*
 | [**deleteConfigurationItem**](ConfigurationSetsApi.md#deleteConfigurationItem) | **DELETE** /api/sets/{type}/{scope}/{code}/items/{key} | [EARLY ACCESS] DeleteConfigurationItem: Remove the specified configuration item from the specified configuration set |
 | [**deleteConfigurationSet**](ConfigurationSetsApi.md#deleteConfigurationSet) | **DELETE** /api/sets/{type}/{scope}/{code} | [EARLY ACCESS] DeleteConfigurationSet: Deletes a configuration set along with all their configuration items |
 | [**generateAccessToken**](ConfigurationSetsApi.md#generateAccessToken) | **PUT** /api/sets/personal/me | [DEPRECATED] GenerateAccessToken: Generate a Personal Access Token for the current user and stores it in the me token |
-| [**getConfigurationItem**](ConfigurationSetsApi.md#getConfigurationItem) | **GET** /api/sets/{type}/{scope}/{code}/items/{key} | [EARLY ACCESS] GetConfigurationItem: Get the specific configuration item within an existing set |
-| [**getConfigurationSet**](ConfigurationSetsApi.md#getConfigurationSet) | **GET** /api/sets/{type}/{scope}/{code} | [EARLY ACCESS] GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed |
+| [**getConfigurationItem**](ConfigurationSetsApi.md#getConfigurationItem) | **GET** /api/sets/{type}/{scope}/{code}/items/{key} | GetConfigurationItem: Get the specific configuration item within an existing set |
+| [**getConfigurationSet**](ConfigurationSetsApi.md#getConfigurationSet) | **GET** /api/sets/{type}/{scope}/{code} | GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed |
 | [**getSystemConfigurationItems**](ConfigurationSetsApi.md#getSystemConfigurationItems) | **GET** /api/sets/system/{code}/items/{key} | [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set  All users have access to this endpoint |
-| [**getSystemConfigurationSets**](ConfigurationSetsApi.md#getSystemConfigurationSets) | **GET** /api/sets/system/{code} | [EARLY ACCESS] GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint |
+| [**getSystemConfigurationSets**](ConfigurationSetsApi.md#getSystemConfigurationSets) | **GET** /api/sets/system/{code} | GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint |
 | [**listConfigurationSets**](ConfigurationSetsApi.md#listConfigurationSets) | **GET** /api/sets | [EARLY ACCESS] ListConfigurationSets: List all configuration sets summaries (I.e. list of scope/code combinations available) |
 | [**updateConfigurationItem**](ConfigurationSetsApi.md#updateConfigurationItem) | **PUT** /api/sets/{type}/{scope}/{code}/items/{key} | [EARLY ACCESS] UpdateConfigurationItem: Update a configuration item&#39;s value and/or description |
 | [**updateConfigurationSet**](ConfigurationSetsApi.md#updateConfigurationSet) | **PUT** /api/sets/{type}/{scope}/{code} | [EARLY ACCESS] UpdateConfigurationSet: Update the description of a configuration set |
@@ -585,7 +585,7 @@ public class ConfigurationSetsApiExample {
 
 > ConfigurationItem getConfigurationItem(type, scope, code, key, reveal, userId)
 
-[EARLY ACCESS] GetConfigurationItem: Get the specific configuration item within an existing set
+GetConfigurationItem: Get the specific configuration item within an existing set
 
 ### Example
 
@@ -674,7 +674,7 @@ public class ConfigurationSetsApiExample {
 
 > ConfigurationSet getConfigurationSet(type, scope, code, reveal, userId)
 
-[EARLY ACCESS] GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed
+GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed
 
 ### Example
 
@@ -844,7 +844,7 @@ public class ConfigurationSetsApiExample {
 
 > ResourceListOfConfigurationSet getSystemConfigurationSets(code, reveal)
 
-[EARLY ACCESS] GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
+GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
 
 ### Example
 

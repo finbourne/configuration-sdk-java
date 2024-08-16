@@ -1551,7 +1551,7 @@ public class ConfigurationSetsApi {
     }
 
     /**
-     * [EARLY ACCESS] GetConfigurationItem: Get the specific configuration item within an existing set
+     * GetConfigurationItem: Get the specific configuration item within an existing set
      * 
      * @param type Whether the configuration set is Personal or Shared (required)
      * @param scope The scope that identifies a configuration set (required)
@@ -1769,7 +1769,7 @@ public class ConfigurationSetsApi {
     }
 
     /**
-     * [EARLY ACCESS] GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed
+     * GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed
      * 
      * @param type Whether the configuration set is Personal or Shared (required)
      * @param scope The scope that identifies a configuration set (required)
@@ -2148,7 +2148,7 @@ public class ConfigurationSetsApi {
     }
 
     /**
-     * [EARLY ACCESS] GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
+     * GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
      * 
      * @param code The code that identifies a system configuration set (required)
      * @return APIgetSystemConfigurationSetsRequest
