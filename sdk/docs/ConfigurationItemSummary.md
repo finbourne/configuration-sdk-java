@@ -13,6 +13,7 @@ A single configuration object
 |**valueType** | **String** | The type of the configuration item&#39;s value |  |
 |**isSecret** | **Boolean** | Defines whether or not the value is a secret. |  |
 |**ref** | **String** | The reference to the configuration item |  [readonly] |
+|**blockReveal** | **Boolean** | Defines whether the value is blocked with non-internal request. |  |
 |**links** | [**List&lt;Link&gt;**](Link.md) |  |  [optional] |
 
 

@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.543
+  version: 0.1.544
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -208,6 +208,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -227,6 +228,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -246,6 +248,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -432,6 +435,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://shared/system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -447,6 +451,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://personal//system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -468,6 +473,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://shared/system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -483,6 +489,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://personal//system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -504,6 +511,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://shared/system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -519,6 +527,7 @@ paths:
                     valueType: text
                     isSecret: true
                     ref: config://personal//system/system-config-set-a/password
+                    blockReveal: false
                   id:
                     scope: system
                     code: system-config-set-a
@@ -617,6 +626,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/system/system-config-item-a/password
+                  blockReveal: false
                 - createdAt: 0001-01-01T00:00:00.0000000+00:00
                   createdBy: user
                   lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
@@ -627,6 +637,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://personal//system/system-config-item-a/password
+                  blockReveal: false
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationItem'
@@ -643,6 +654,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/system/system-config-item-a/password
+                  blockReveal: false
                 - createdAt: 0001-01-01T00:00:00.0000000+00:00
                   createdBy: user
                   lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
@@ -653,6 +665,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://personal//system/system-config-item-a/password
+                  blockReveal: false
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationItem'
@@ -669,6 +682,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/system/system-config-item-a/password
+                  blockReveal: false
                 - createdAt: 0001-01-01T00:00:00.0000000+00:00
                   createdBy: user
                   lastModifiedAt: 0001-01-01T00:00:00.0000000+00:00
@@ -679,6 +693,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://personal//system/system-config-item-a/password
+                  blockReveal: false
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationItem'
@@ -880,6 +895,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -899,6 +915,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -918,6 +935,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1048,6 +1066,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1067,6 +1086,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1086,6 +1106,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1187,6 +1208,7 @@ paths:
               valueType: text
               isSecret: false
               description: Password for System A
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/CreateConfigurationItem'
           application/json:
@@ -1196,6 +1218,7 @@ paths:
               valueType: text
               isSecret: false
               description: Password for System A
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/CreateConfigurationItem'
           text/json:
@@ -1205,6 +1228,7 @@ paths:
               valueType: text
               isSecret: false
               description: Password for System A
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/CreateConfigurationItem'
           application/*+json:
@@ -1214,6 +1238,7 @@ paths:
               valueType: text
               isSecret: false
               description: Password for System A
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/CreateConfigurationItem'
         description: The data to create a configuration item
@@ -1234,6 +1259,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1253,6 +1279,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1272,6 +1299,7 @@ paths:
                   valueType: text
                   isSecret: true
                   ref: config://shared/official/system-a-config/password
+                  blockReveal: false
                 id:
                   scope: official
                   code: system-a-config
@@ -1497,6 +1525,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
             application/json:
@@ -1511,6 +1540,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
             text/json:
@@ -1525,6 +1555,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
           description: Success
@@ -1665,6 +1696,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
             application/json:
@@ -1679,6 +1711,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
             text/json:
@@ -1693,6 +1726,7 @@ paths:
                 valueType: text
                 isSecret: true
                 ref: config://shared/official/system-a-config/password
+                blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
           description: Success
@@ -1990,6 +2024,7 @@ components:
           href: https://openapi-generator.tech
           relation: relation
         value: value
+        blockReveal: true
         key: key
       properties:
         createdAt:
@@ -2034,12 +2069,16 @@ components:
           minLength: 1
           readOnly: true
           type: string
+        blockReveal:
+          description: Defines whether the value is blocked with non-internal request.
+          type: boolean
         links:
           items:
             $ref: '#/components/schemas/Link'
           nullable: true
           type: array
       required:
+      - blockReveal
       - createdAt
       - createdBy
       - isSecret
@@ -2067,6 +2106,7 @@ components:
           href: https://openapi-generator.tech
           relation: relation
         value: value
+        blockReveal: true
         key: key
       properties:
         key:
@@ -2089,12 +2129,16 @@ components:
           minLength: 1
           readOnly: true
           type: string
+        blockReveal:
+          description: Defines whether the value is blocked with non-internal request.
+          type: boolean
         links:
           items:
             $ref: '#/components/schemas/Link'
           nullable: true
           type: array
       required:
+      - blockReveal
       - isSecret
       - key
       - ref
@@ -2137,6 +2181,7 @@ components:
             href: https://openapi-generator.tech
             relation: relation
           value: value
+          blockReveal: true
           key: key
         - isSecret: true
           ref: ref
@@ -2151,6 +2196,7 @@ components:
             href: https://openapi-generator.tech
             relation: relation
           value: value
+          blockReveal: true
           key: key
       properties:
         createdAt:
@@ -2241,6 +2287,7 @@ components:
         valueType: valueType
         description: description
         value: value
+        blockReveal: true
         key: key
       properties:
         key:
@@ -2274,6 +2321,9 @@ components:
           minLength: 0
           nullable: true
           type: string
+        blockReveal:
+          description: A property to indicate if revealing the value is blocked.
+          type: boolean
       required:
       - isSecret
       - key
@@ -2856,6 +2906,7 @@ components:
             href: https://openapi-generator.tech
             relation: relation
           value: value
+          blockReveal: true
           key: key
         - createdAt: 2000-01-23T04:56:07.000+00:00
           isSecret: true
@@ -2875,6 +2926,7 @@ components:
             href: https://openapi-generator.tech
             relation: relation
           value: value
+          blockReveal: true
           key: key
         links:
         - method: method
@@ -2947,6 +2999,7 @@ components:
               href: https://openapi-generator.tech
               relation: relation
             value: value
+            blockReveal: true
             key: key
           - isSecret: true
             ref: ref
@@ -2961,6 +3014,7 @@ components:
               href: https://openapi-generator.tech
               relation: relation
             value: value
+            blockReveal: true
             key: key
         - createdAt: 2000-01-23T04:56:07.000+00:00
           lastModifiedAt: 2000-01-23T04:56:07.000+00:00
@@ -2994,6 +3048,7 @@ components:
               href: https://openapi-generator.tech
               relation: relation
             value: value
+            blockReveal: true
             key: key
           - isSecret: true
             ref: ref
@@ -3008,6 +3063,7 @@ components:
               href: https://openapi-generator.tech
               relation: relation
             value: value
+            blockReveal: true
             key: key
         links:
         - method: method

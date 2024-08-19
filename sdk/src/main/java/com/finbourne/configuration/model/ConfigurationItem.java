@@ -94,6 +94,10 @@ public class ConfigurationItem {
   @SerializedName(SERIALIZED_NAME_REF)
   private String ref;
 
+  public static final String SERIALIZED_NAME_BLOCK_REVEAL = "blockReveal";
+  @SerializedName(SERIALIZED_NAME_BLOCK_REVEAL)
+  private Boolean blockReveal;
+
   public static final String SERIALIZED_NAME_LINKS = "links";
   @SerializedName(SERIALIZED_NAME_LINKS)
   private List<Link> links;
@@ -310,6 +314,27 @@ public class ConfigurationItem {
 
 
 
+  public ConfigurationItem blockReveal(Boolean blockReveal) {
+    
+    this.blockReveal = blockReveal;
+    return this;
+  }
+
+   /**
+   * Defines whether the value is blocked with non-internal request.
+   * @return blockReveal
+  **/
+  @jakarta.annotation.Nonnull
+  public Boolean getBlockReveal() {
+    return blockReveal;
+  }
+
+
+  public void setBlockReveal(Boolean blockReveal) {
+    this.blockReveal = blockReveal;
+  }
+
+
   public ConfigurationItem links(List<Link> links) {
     
     this.links = links;
@@ -359,6 +384,7 @@ public class ConfigurationItem {
         Objects.equals(this.valueType, configurationItem.valueType) &&
         Objects.equals(this.isSecret, configurationItem.isSecret) &&
         Objects.equals(this.ref, configurationItem.ref) &&
+        Objects.equals(this.blockReveal, configurationItem.blockReveal) &&
         Objects.equals(this.links, configurationItem.links);
   }
 
@@ -368,7 +394,7 @@ public class ConfigurationItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, createdBy, lastModifiedAt, lastModifiedBy, description, key, value, valueType, isSecret, ref, links);
+    return Objects.hash(createdAt, createdBy, lastModifiedAt, lastModifiedBy, description, key, value, valueType, isSecret, ref, blockReveal, links);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -392,6 +418,7 @@ public class ConfigurationItem {
     sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
     sb.append("    isSecret: ").append(toIndentedString(isSecret)).append("\n");
     sb.append("    ref: ").append(toIndentedString(ref)).append("\n");
+    sb.append("    blockReveal: ").append(toIndentedString(blockReveal)).append("\n");
     sb.append("    links: ").append(toIndentedString(links)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -425,6 +452,7 @@ public class ConfigurationItem {
     openapiFields.add("valueType");
     openapiFields.add("isSecret");
     openapiFields.add("ref");
+    openapiFields.add("blockReveal");
     openapiFields.add("links");
 
     // a set of required properties/fields (JSON key names)
@@ -438,6 +466,7 @@ public class ConfigurationItem {
     openapiRequiredFields.add("valueType");
     openapiRequiredFields.add("isSecret");
     openapiRequiredFields.add("ref");
+    openapiRequiredFields.add("blockReveal");
   }
 
  /**

@@ -70,6 +70,10 @@ public class CreateConfigurationItem {
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
+  public static final String SERIALIZED_NAME_BLOCK_REVEAL = "blockReveal";
+  @SerializedName(SERIALIZED_NAME_BLOCK_REVEAL)
+  private Boolean blockReveal;
+
   public CreateConfigurationItem() {
   }
 
@@ -178,6 +182,27 @@ public class CreateConfigurationItem {
   }
 
 
+  public CreateConfigurationItem blockReveal(Boolean blockReveal) {
+    
+    this.blockReveal = blockReveal;
+    return this;
+  }
+
+   /**
+   * A property to indicate if revealing the value is blocked.
+   * @return blockReveal
+  **/
+  @jakarta.annotation.Nullable
+  public Boolean getBlockReveal() {
+    return blockReveal;
+  }
+
+
+  public void setBlockReveal(Boolean blockReveal) {
+    this.blockReveal = blockReveal;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -192,7 +217,8 @@ public class CreateConfigurationItem {
         Objects.equals(this.value, createConfigurationItem.value) &&
         Objects.equals(this.valueType, createConfigurationItem.valueType) &&
         Objects.equals(this.isSecret, createConfigurationItem.isSecret) &&
-        Objects.equals(this.description, createConfigurationItem.description);
+        Objects.equals(this.description, createConfigurationItem.description) &&
+        Objects.equals(this.blockReveal, createConfigurationItem.blockReveal);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -201,7 +227,7 @@ public class CreateConfigurationItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, value, valueType, isSecret, description);
+    return Objects.hash(key, value, valueType, isSecret, description, blockReveal);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -220,6 +246,7 @@ public class CreateConfigurationItem {
     sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
     sb.append("    isSecret: ").append(toIndentedString(isSecret)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    blockReveal: ").append(toIndentedString(blockReveal)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -247,6 +274,7 @@ public class CreateConfigurationItem {
     openapiFields.add("valueType");
     openapiFields.add("isSecret");
     openapiFields.add("description");
+    openapiFields.add("blockReveal");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
