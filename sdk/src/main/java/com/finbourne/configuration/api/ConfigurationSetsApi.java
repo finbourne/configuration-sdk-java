@@ -18,6 +18,7 @@ import com.finbourne.configuration.Configuration;
 import com.finbourne.configuration.Pair;
 import com.finbourne.configuration.ProgressRequestBody;
 import com.finbourne.configuration.ProgressResponseBody;
+import com.finbourne.configuration.extensions.ConfigurationOptions;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -81,6 +82,10 @@ public class ConfigurationSetsApi {
     }
 
     private okhttp3.Call addConfigurationToSetCall(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback _callback) throws ApiException {
+        return addConfigurationToSetCall(type, scope, code, createConfigurationItem, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call addConfigurationToSetCall(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -134,11 +139,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call addConfigurationToSetValidateBeforeCall(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call addConfigurationToSetValidateBeforeCall(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling addConfigurationToSet(Async)");
@@ -159,20 +164,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'createConfigurationItem' when calling addConfigurationToSet(Async)");
         }
 
-        return addConfigurationToSetCall(type, scope, code, createConfigurationItem, userId, _callback);
+        return addConfigurationToSetCall(type, scope, code, createConfigurationItem, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationSet> addConfigurationToSetWithHttpInfo(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId) throws ApiException {
-        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, null);
+        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationSet> addConfigurationToSetWithHttpInfo(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call addConfigurationToSetAsync(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback<ConfigurationSet> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, _callback);
+        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call addConfigurationToSetAsync(String type, String scope, String code, CreateConfigurationItem createConfigurationItem, String userId, final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = addConfigurationToSetValidateBeforeCall(type, scope, code, createConfigurationItem, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -239,6 +258,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute addConfigurationToSet request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationSet
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationSet execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationSet> localVarResp = addConfigurationToSetWithHttpInfo(type, scope, code, createConfigurationItem, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute addConfigurationToSet request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationSet&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -253,6 +290,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationSet> executeWithHttpInfo() throws ApiException {
             return addConfigurationToSetWithHttpInfo(type, scope, code, createConfigurationItem, userId);
+        }
+
+        /**
+         * Execute addConfigurationToSet request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationSet&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationSet> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return addConfigurationToSetWithHttpInfo(type, scope, code, createConfigurationItem, userId, opts);
         }
 
         /**
@@ -271,6 +325,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback) throws ApiException {
             return addConfigurationToSetAsync(type, scope, code, createConfigurationItem, userId, _callback);
+        }
+
+        /**
+         * Execute addConfigurationToSet request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+            return addConfigurationToSetAsync(type, scope, code, createConfigurationItem, userId, _callback, opts);
         }
     }
 
@@ -295,6 +367,10 @@ public class ConfigurationSetsApi {
         return new APIaddConfigurationToSetRequest(type, scope, code, createConfigurationItem);
     }
     private okhttp3.Call checkAccessTokenExistsCall(final ApiCallback _callback) throws ApiException {
+        return checkAccessTokenExistsCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call checkAccessTokenExistsCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -335,24 +411,36 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "HEAD", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "HEAD", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call checkAccessTokenExistsValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return checkAccessTokenExistsCall(_callback);
+    private okhttp3.Call checkAccessTokenExistsValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return checkAccessTokenExistsCall(_callback, opts);
 
     }
 
 
     private ApiResponse<Void> checkAccessTokenExistsWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(null);
+        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> checkAccessTokenExistsWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call checkAccessTokenExistsAsync(final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(_callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call checkAccessTokenExistsAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = checkAccessTokenExistsValidateBeforeCall(_callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -395,6 +483,21 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute checkAccessTokenExists request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The Personal Access Token exists </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The Personal Access Token does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            checkAccessTokenExistsWithHttpInfo(opts);
+        }
+
+        /**
          * Execute checkAccessTokenExists request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -408,6 +511,22 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return checkAccessTokenExistsWithHttpInfo();
+        }
+
+        /**
+         * Execute checkAccessTokenExists request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The Personal Access Token exists </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The Personal Access Token does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return checkAccessTokenExistsWithHttpInfo(opts);
         }
 
         /**
@@ -425,6 +544,23 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return checkAccessTokenExistsAsync(_callback);
+        }
+
+        /**
+         * Execute checkAccessTokenExists request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> The Personal Access Token exists </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> The Personal Access Token does not exist </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return checkAccessTokenExistsAsync(_callback, opts);
         }
     }
 
@@ -444,6 +580,10 @@ public class ConfigurationSetsApi {
         return new APIcheckAccessTokenExistsRequest();
     }
     private okhttp3.Call createConfigurationSetCall(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback _callback) throws ApiException {
+        return createConfigurationSetCall(createConfigurationSet, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call createConfigurationSetCall(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -494,30 +634,44 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConfigurationSetValidateBeforeCall(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createConfigurationSetValidateBeforeCall(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'createConfigurationSet' is set
         if (createConfigurationSet == null) {
             throw new ApiException("Missing the required parameter 'createConfigurationSet' when calling createConfigurationSet(Async)");
         }
 
-        return createConfigurationSetCall(createConfigurationSet, userId, _callback);
+        return createConfigurationSetCall(createConfigurationSet, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationSet> createConfigurationSetWithHttpInfo(CreateConfigurationSet createConfigurationSet, String userId) throws ApiException {
-        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, null);
+        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationSet> createConfigurationSetWithHttpInfo(CreateConfigurationSet createConfigurationSet, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call createConfigurationSetAsync(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback<ConfigurationSet> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, _callback);
+        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call createConfigurationSetAsync(CreateConfigurationSet createConfigurationSet, String userId, final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = createConfigurationSetValidateBeforeCall(createConfigurationSet, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -576,6 +730,23 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute createConfigurationSet request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationSet
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationSet execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationSet> localVarResp = createConfigurationSetWithHttpInfo(createConfigurationSet, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute createConfigurationSet request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationSet&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -589,6 +760,22 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationSet> executeWithHttpInfo() throws ApiException {
             return createConfigurationSetWithHttpInfo(createConfigurationSet, userId);
+        }
+
+        /**
+         * Execute createConfigurationSet request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationSet&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationSet> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return createConfigurationSetWithHttpInfo(createConfigurationSet, userId, opts);
         }
 
         /**
@@ -606,6 +793,23 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback) throws ApiException {
             return createConfigurationSetAsync(createConfigurationSet, userId, _callback);
+        }
+
+        /**
+         * Execute createConfigurationSet request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td> Created </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+            return createConfigurationSetAsync(createConfigurationSet, userId, _callback, opts);
         }
     }
 
@@ -626,6 +830,10 @@ public class ConfigurationSetsApi {
         return new APIcreateConfigurationSetRequest(createConfigurationSet);
     }
     private okhttp3.Call deleteAccessTokenCall(final ApiCallback _callback) throws ApiException {
+        return deleteAccessTokenCall( _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteAccessTokenCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -666,24 +874,36 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteAccessTokenValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return deleteAccessTokenCall(_callback);
+    private okhttp3.Call deleteAccessTokenValidateBeforeCall(final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return deleteAccessTokenCall(_callback, opts);
 
     }
 
 
     private ApiResponse<Void> deleteAccessTokenWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(null);
+        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> deleteAccessTokenWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call deleteAccessTokenAsync(final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(_callback);
+        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(_callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteAccessTokenAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteAccessTokenValidateBeforeCall(_callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -724,6 +944,20 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute deleteAccessToken request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            deleteAccessTokenWithHttpInfo(opts);
+        }
+
+        /**
          * Execute deleteAccessToken request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -736,6 +970,21 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return deleteAccessTokenWithHttpInfo();
+        }
+
+        /**
+         * Execute deleteAccessToken request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteAccessTokenWithHttpInfo(opts);
         }
 
         /**
@@ -752,6 +1001,22 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return deleteAccessTokenAsync(_callback);
+        }
+
+        /**
+         * Execute deleteAccessToken request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteAccessTokenAsync(_callback, opts);
         }
     }
 
@@ -770,6 +1035,10 @@ public class ConfigurationSetsApi {
         return new APIdeleteAccessTokenRequest();
     }
     private okhttp3.Call deleteConfigurationItemCall(String type, String scope, String code, String key, String userId, final ApiCallback _callback) throws ApiException {
+        return deleteConfigurationItemCall(type, scope, code, key, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteConfigurationItemCall(String type, String scope, String code, String key, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -820,11 +1089,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling deleteConfigurationItem(Async)");
@@ -845,19 +1114,31 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'key' when calling deleteConfigurationItem(Async)");
         }
 
-        return deleteConfigurationItemCall(type, scope, code, key, userId, _callback);
+        return deleteConfigurationItemCall(type, scope, code, key, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<Void> deleteConfigurationItemWithHttpInfo(String type, String scope, String code, String key, String userId) throws ApiException {
-        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, null);
+        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> deleteConfigurationItemWithHttpInfo(String type, String scope, String code, String key, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call deleteConfigurationItemAsync(String type, String scope, String code, String key, String userId, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, _callback);
+        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, _callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteConfigurationItemAsync(String type, String scope, String code, String key, String userId, final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteConfigurationItemValidateBeforeCall(type, scope, code, key, userId, _callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -921,6 +1202,22 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute deleteConfigurationItem request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            deleteConfigurationItemWithHttpInfo(type, scope, code, key, userId, opts);
+        }
+
+        /**
          * Execute deleteConfigurationItem request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -935,6 +1232,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return deleteConfigurationItemWithHttpInfo(type, scope, code, key, userId);
+        }
+
+        /**
+         * Execute deleteConfigurationItem request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteConfigurationItemWithHttpInfo(type, scope, code, key, userId, opts);
         }
 
         /**
@@ -953,6 +1267,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return deleteConfigurationItemAsync(type, scope, code, key, userId, _callback);
+        }
+
+        /**
+         * Execute deleteConfigurationItem request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteConfigurationItemAsync(type, scope, code, key, userId, _callback, opts);
         }
     }
 
@@ -977,6 +1309,10 @@ public class ConfigurationSetsApi {
         return new APIdeleteConfigurationItemRequest(type, scope, code, key);
     }
     private okhttp3.Call deleteConfigurationSetCall(String type, String scope, String code, String userId, final ApiCallback _callback) throws ApiException {
+        return deleteConfigurationSetCall(type, scope, code, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call deleteConfigurationSetCall(String type, String scope, String code, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1026,11 +1362,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteConfigurationSetValidateBeforeCall(String type, String scope, String code, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteConfigurationSetValidateBeforeCall(String type, String scope, String code, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling deleteConfigurationSet(Async)");
@@ -1046,19 +1382,31 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'code' when calling deleteConfigurationSet(Async)");
         }
 
-        return deleteConfigurationSetCall(type, scope, code, userId, _callback);
+        return deleteConfigurationSetCall(type, scope, code, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<Void> deleteConfigurationSetWithHttpInfo(String type, String scope, String code, String userId) throws ApiException {
-        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, null);
+        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, null, new ConfigurationOptions());
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    private ApiResponse<Void> deleteConfigurationSetWithHttpInfo(String type, String scope, String code, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, null, opts);
         return localVarApiClient.execute(localVarCall);
     }
 
     private okhttp3.Call deleteConfigurationSetAsync(String type, String scope, String code, String userId, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, _callback);
+        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, _callback, new ConfigurationOptions());
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call deleteConfigurationSetAsync(String type, String scope, String code, String userId, final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteConfigurationSetValidateBeforeCall(type, scope, code, userId, _callback, opts);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
@@ -1120,6 +1468,22 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute deleteConfigurationSet request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute(ConfigurationOptions opts) throws ApiException {
+            deleteConfigurationSetWithHttpInfo(type, scope, code, userId, opts);
+        }
+
+        /**
          * Execute deleteConfigurationSet request with HTTP info returned
          * @return ApiResponse&lt;Void&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1134,6 +1498,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
             return deleteConfigurationSetWithHttpInfo(type, scope, code, userId);
+        }
+
+        /**
+         * Execute deleteConfigurationSet request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return deleteConfigurationSetWithHttpInfo(type, scope, code, userId, opts);
         }
 
         /**
@@ -1152,6 +1533,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
             return deleteConfigurationSetAsync(type, scope, code, userId, _callback);
+        }
+
+        /**
+         * Execute deleteConfigurationSet request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No Content </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback, ConfigurationOptions opts) throws ApiException {
+            return deleteConfigurationSetAsync(type, scope, code, userId, _callback, opts);
         }
     }
 
@@ -1175,6 +1574,10 @@ public class ConfigurationSetsApi {
         return new APIdeleteConfigurationSetRequest(type, scope, code);
     }
     private okhttp3.Call generateAccessTokenCall(String action, final ApiCallback _callback) throws ApiException {
+        return generateAccessTokenCall(action,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call generateAccessTokenCall(String action, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1221,25 +1624,39 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call generateAccessTokenValidateBeforeCall(String action, final ApiCallback _callback) throws ApiException {
-        return generateAccessTokenCall(action, _callback);
+    private okhttp3.Call generateAccessTokenValidateBeforeCall(String action, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return generateAccessTokenCall(action, _callback, opts);
 
     }
 
 
     private ApiResponse<PersonalAccessToken> generateAccessTokenWithHttpInfo(String action) throws ApiException {
-        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, null);
+        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PersonalAccessToken>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<PersonalAccessToken> generateAccessTokenWithHttpInfo(String action, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, null, opts);
         Type localVarReturnType = new TypeToken<PersonalAccessToken>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call generateAccessTokenAsync(String action, final ApiCallback<PersonalAccessToken> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, _callback);
+        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<PersonalAccessToken>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call generateAccessTokenAsync(String action, final ApiCallback<PersonalAccessToken> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = generateAccessTokenValidateBeforeCall(action, _callback, opts);
         Type localVarReturnType = new TypeToken<PersonalAccessToken>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1296,6 +1713,23 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute generateAccessToken request. Use any specified configuration options to override any other configuration for this request only.
+         * @return PersonalAccessToken
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public PersonalAccessToken execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<PersonalAccessToken> localVarResp = generateAccessTokenWithHttpInfo(action, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute generateAccessToken request with HTTP info returned
          * @return ApiResponse&lt;PersonalAccessToken&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1309,6 +1743,22 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<PersonalAccessToken> executeWithHttpInfo() throws ApiException {
             return generateAccessTokenWithHttpInfo(action);
+        }
+
+        /**
+         * Execute generateAccessToken request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;PersonalAccessToken&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PersonalAccessToken> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return generateAccessTokenWithHttpInfo(action, opts);
         }
 
         /**
@@ -1326,6 +1776,23 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<PersonalAccessToken> _callback) throws ApiException {
             return generateAccessTokenAsync(action, _callback);
+        }
+
+        /**
+         * Execute generateAccessToken request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PersonalAccessToken> _callback, ConfigurationOptions opts) throws ApiException {
+            return generateAccessTokenAsync(action, _callback, opts);
         }
     }
 
@@ -1345,6 +1812,10 @@ public class ConfigurationSetsApi {
         return new APIgenerateAccessTokenRequest();
     }
     private okhttp3.Call getConfigurationItemCall(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback _callback) throws ApiException {
+        return getConfigurationItemCall(type, scope, code, key, reveal, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getConfigurationItemCall(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1399,11 +1870,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling getConfigurationItem(Async)");
@@ -1424,20 +1895,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'key' when calling getConfigurationItem(Async)");
         }
 
-        return getConfigurationItemCall(type, scope, code, key, reveal, userId, _callback);
+        return getConfigurationItemCall(type, scope, code, key, reveal, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationItem> getConfigurationItemWithHttpInfo(String type, String scope, String code, String key, Boolean reveal, String userId) throws ApiException {
-        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, null);
+        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationItem> getConfigurationItemWithHttpInfo(String type, String scope, String code, String key, Boolean reveal, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getConfigurationItemAsync(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback<ConfigurationItem> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, _callback);
+        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getConfigurationItemAsync(String type, String scope, String code, String key, Boolean reveal, String userId, final ApiCallback<ConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getConfigurationItemValidateBeforeCall(type, scope, code, key, reveal, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1515,6 +2000,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute getConfigurationItem request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationItem
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationItem execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationItem> localVarResp = getConfigurationItemWithHttpInfo(type, scope, code, key, reveal, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getConfigurationItem request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationItem&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1529,6 +2032,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationItem> executeWithHttpInfo() throws ApiException {
             return getConfigurationItemWithHttpInfo(type, scope, code, key, reveal, userId);
+        }
+
+        /**
+         * Execute getConfigurationItem request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationItem&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationItem> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getConfigurationItemWithHttpInfo(type, scope, code, key, reveal, userId, opts);
         }
 
         /**
@@ -1547,6 +2067,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationItem> _callback) throws ApiException {
             return getConfigurationItemAsync(type, scope, code, key, reveal, userId, _callback);
+        }
+
+        /**
+         * Execute getConfigurationItem request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+            return getConfigurationItemAsync(type, scope, code, key, reveal, userId, _callback, opts);
         }
     }
 
@@ -1571,6 +2109,10 @@ public class ConfigurationSetsApi {
         return new APIgetConfigurationItemRequest(type, scope, code, key);
     }
     private okhttp3.Call getConfigurationSetCall(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback _callback) throws ApiException {
+        return getConfigurationSetCall(type, scope, code, reveal, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getConfigurationSetCall(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1624,11 +2166,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConfigurationSetValidateBeforeCall(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getConfigurationSetValidateBeforeCall(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling getConfigurationSet(Async)");
@@ -1644,20 +2186,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'code' when calling getConfigurationSet(Async)");
         }
 
-        return getConfigurationSetCall(type, scope, code, reveal, userId, _callback);
+        return getConfigurationSetCall(type, scope, code, reveal, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationSet> getConfigurationSetWithHttpInfo(String type, String scope, String code, Boolean reveal, String userId) throws ApiException {
-        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, null);
+        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationSet> getConfigurationSetWithHttpInfo(String type, String scope, String code, Boolean reveal, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getConfigurationSetAsync(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback<ConfigurationSet> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, _callback);
+        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getConfigurationSetAsync(String type, String scope, String code, Boolean reveal, String userId, final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getConfigurationSetValidateBeforeCall(type, scope, code, reveal, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1733,6 +2289,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute getConfigurationSet request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationSet
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationSet execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationSet> localVarResp = getConfigurationSetWithHttpInfo(type, scope, code, reveal, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getConfigurationSet request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationSet&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1747,6 +2321,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationSet> executeWithHttpInfo() throws ApiException {
             return getConfigurationSetWithHttpInfo(type, scope, code, reveal, userId);
+        }
+
+        /**
+         * Execute getConfigurationSet request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationSet&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationSet> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getConfigurationSetWithHttpInfo(type, scope, code, reveal, userId, opts);
         }
 
         /**
@@ -1765,6 +2356,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback) throws ApiException {
             return getConfigurationSetAsync(type, scope, code, reveal, userId, _callback);
+        }
+
+        /**
+         * Execute getConfigurationSet request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+            return getConfigurationSetAsync(type, scope, code, reveal, userId, _callback, opts);
         }
     }
 
@@ -1788,6 +2397,10 @@ public class ConfigurationSetsApi {
         return new APIgetConfigurationSetRequest(type, scope, code);
     }
     private okhttp3.Call getSystemConfigurationItemsCall(String code, String key, Boolean reveal, final ApiCallback _callback) throws ApiException {
+        return getSystemConfigurationItemsCall(code, key, reveal,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getSystemConfigurationItemsCall(String code, String key, Boolean reveal, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1836,11 +2449,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSystemConfigurationItemsValidateBeforeCall(String code, String key, Boolean reveal, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSystemConfigurationItemsValidateBeforeCall(String code, String key, Boolean reveal, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSystemConfigurationItems(Async)");
@@ -1851,20 +2464,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'key' when calling getSystemConfigurationItems(Async)");
         }
 
-        return getSystemConfigurationItemsCall(code, key, reveal, _callback);
+        return getSystemConfigurationItemsCall(code, key, reveal, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfConfigurationItem> getSystemConfigurationItemsWithHttpInfo(String code, String key, Boolean reveal) throws ApiException {
-        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, null);
+        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationItem>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfConfigurationItem> getSystemConfigurationItemsWithHttpInfo(String code, String key, Boolean reveal, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationItem>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getSystemConfigurationItemsAsync(String code, String key, Boolean reveal, final ApiCallback<ResourceListOfConfigurationItem> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, _callback);
+        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationItem>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getSystemConfigurationItemsAsync(String code, String key, Boolean reveal, final ApiCallback<ResourceListOfConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getSystemConfigurationItemsValidateBeforeCall(code, key, reveal, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationItem>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1927,6 +2554,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute getSystemConfigurationItems request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfConfigurationItem
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfConfigurationItem execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfConfigurationItem> localVarResp = getSystemConfigurationItemsWithHttpInfo(code, key, reveal, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getSystemConfigurationItems request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfConfigurationItem&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1941,6 +2586,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ResourceListOfConfigurationItem> executeWithHttpInfo() throws ApiException {
             return getSystemConfigurationItemsWithHttpInfo(code, key, reveal);
+        }
+
+        /**
+         * Execute getSystemConfigurationItems request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfConfigurationItem&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfConfigurationItem> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getSystemConfigurationItemsWithHttpInfo(code, key, reveal, opts);
         }
 
         /**
@@ -1959,6 +2621,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationItem> _callback) throws ApiException {
             return getSystemConfigurationItemsAsync(code, key, reveal, _callback);
+        }
+
+        /**
+         * Execute getSystemConfigurationItems request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+            return getSystemConfigurationItemsAsync(code, key, reveal, _callback, opts);
         }
     }
 
@@ -1981,6 +2661,10 @@ public class ConfigurationSetsApi {
         return new APIgetSystemConfigurationItemsRequest(code, key);
     }
     private okhttp3.Call getSystemConfigurationSetsCall(String code, Boolean reveal, final ApiCallback _callback) throws ApiException {
+        return getSystemConfigurationSetsCall(code, reveal,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call getSystemConfigurationSetsCall(String code, Boolean reveal, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2028,30 +2712,44 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getSystemConfigurationSetsValidateBeforeCall(String code, Boolean reveal, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getSystemConfigurationSetsValidateBeforeCall(String code, Boolean reveal, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'code' is set
         if (code == null) {
             throw new ApiException("Missing the required parameter 'code' when calling getSystemConfigurationSets(Async)");
         }
 
-        return getSystemConfigurationSetsCall(code, reveal, _callback);
+        return getSystemConfigurationSetsCall(code, reveal, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfConfigurationSet> getSystemConfigurationSetsWithHttpInfo(String code, Boolean reveal) throws ApiException {
-        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, null);
+        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSet>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfConfigurationSet> getSystemConfigurationSetsWithHttpInfo(String code, Boolean reveal, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSet>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call getSystemConfigurationSetsAsync(String code, Boolean reveal, final ApiCallback<ResourceListOfConfigurationSet> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, _callback);
+        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSet>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call getSystemConfigurationSetsAsync(String code, Boolean reveal, final ApiCallback<ResourceListOfConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = getSystemConfigurationSetsValidateBeforeCall(code, reveal, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSet>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -2112,6 +2810,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute getSystemConfigurationSets request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfConfigurationSet
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfConfigurationSet execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfConfigurationSet> localVarResp = getSystemConfigurationSetsWithHttpInfo(code, reveal, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute getSystemConfigurationSets request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfConfigurationSet&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -2126,6 +2842,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ResourceListOfConfigurationSet> executeWithHttpInfo() throws ApiException {
             return getSystemConfigurationSetsWithHttpInfo(code, reveal);
+        }
+
+        /**
+         * Execute getSystemConfigurationSets request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfConfigurationSet&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfConfigurationSet> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return getSystemConfigurationSetsWithHttpInfo(code, reveal, opts);
         }
 
         /**
@@ -2144,6 +2877,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationSet> _callback) throws ApiException {
             return getSystemConfigurationSetsAsync(code, reveal, _callback);
+        }
+
+        /**
+         * Execute getSystemConfigurationSets request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No system configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+            return getSystemConfigurationSetsAsync(code, reveal, _callback, opts);
         }
     }
 
@@ -2165,6 +2916,10 @@ public class ConfigurationSetsApi {
         return new APIgetSystemConfigurationSetsRequest(code);
     }
     private okhttp3.Call listConfigurationSetsCall(String type, String userId, final ApiCallback _callback) throws ApiException {
+        return listConfigurationSetsCall(type, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call listConfigurationSetsCall(String type, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2215,25 +2970,39 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listConfigurationSetsValidateBeforeCall(String type, String userId, final ApiCallback _callback) throws ApiException {
-        return listConfigurationSetsCall(type, userId, _callback);
+    private okhttp3.Call listConfigurationSetsValidateBeforeCall(String type, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
+        return listConfigurationSetsCall(type, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ResourceListOfConfigurationSetSummary> listConfigurationSetsWithHttpInfo(String type, String userId) throws ApiException {
-        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, null);
+        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSetSummary>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ResourceListOfConfigurationSetSummary> listConfigurationSetsWithHttpInfo(String type, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, null, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSetSummary>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call listConfigurationSetsAsync(String type, String userId, final ApiCallback<ResourceListOfConfigurationSetSummary> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, _callback);
+        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSetSummary>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call listConfigurationSetsAsync(String type, String userId, final ApiCallback<ResourceListOfConfigurationSetSummary> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = listConfigurationSetsValidateBeforeCall(type, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ResourceListOfConfigurationSetSummary>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -2301,6 +3070,23 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute listConfigurationSets request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ResourceListOfConfigurationSetSummary
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ResourceListOfConfigurationSetSummary execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ResourceListOfConfigurationSetSummary> localVarResp = listConfigurationSetsWithHttpInfo(type, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute listConfigurationSets request with HTTP info returned
          * @return ApiResponse&lt;ResourceListOfConfigurationSetSummary&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -2314,6 +3100,22 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ResourceListOfConfigurationSetSummary> executeWithHttpInfo() throws ApiException {
             return listConfigurationSetsWithHttpInfo(type, userId);
+        }
+
+        /**
+         * Execute listConfigurationSets request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ResourceListOfConfigurationSetSummary&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ResourceListOfConfigurationSetSummary> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return listConfigurationSetsWithHttpInfo(type, userId, opts);
         }
 
         /**
@@ -2331,6 +3133,23 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationSetSummary> _callback) throws ApiException {
             return listConfigurationSetsAsync(type, userId, _callback);
+        }
+
+        /**
+         * Execute listConfigurationSets request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ResourceListOfConfigurationSetSummary> _callback, ConfigurationOptions opts) throws ApiException {
+            return listConfigurationSetsAsync(type, userId, _callback, opts);
         }
     }
 
@@ -2350,6 +3169,10 @@ public class ConfigurationSetsApi {
         return new APIlistConfigurationSetsRequest();
     }
     private okhttp3.Call updateConfigurationItemCall(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback _callback) throws ApiException {
+        return updateConfigurationItemCall(type, scope, code, key, updateConfigurationItem, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call updateConfigurationItemCall(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2404,11 +3227,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateConfigurationItemValidateBeforeCall(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling updateConfigurationItem(Async)");
@@ -2434,20 +3257,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'updateConfigurationItem' when calling updateConfigurationItem(Async)");
         }
 
-        return updateConfigurationItemCall(type, scope, code, key, updateConfigurationItem, userId, _callback);
+        return updateConfigurationItemCall(type, scope, code, key, updateConfigurationItem, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationItem> updateConfigurationItemWithHttpInfo(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId) throws ApiException {
-        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, null);
+        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationItem> updateConfigurationItemWithHttpInfo(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call updateConfigurationItemAsync(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback<ConfigurationItem> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, _callback);
+        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call updateConfigurationItemAsync(String type, String scope, String code, String key, UpdateConfigurationItem updateConfigurationItem, String userId, final ApiCallback<ConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = updateConfigurationItemValidateBeforeCall(type, scope, code, key, updateConfigurationItem, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationItem>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -2516,6 +3353,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute updateConfigurationItem request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationItem
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationItem execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationItem> localVarResp = updateConfigurationItemWithHttpInfo(type, scope, code, key, updateConfigurationItem, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute updateConfigurationItem request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationItem&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -2530,6 +3385,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationItem> executeWithHttpInfo() throws ApiException {
             return updateConfigurationItemWithHttpInfo(type, scope, code, key, updateConfigurationItem, userId);
+        }
+
+        /**
+         * Execute updateConfigurationItem request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationItem&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationItem> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateConfigurationItemWithHttpInfo(type, scope, code, key, updateConfigurationItem, userId, opts);
         }
 
         /**
@@ -2548,6 +3420,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationItem> _callback) throws ApiException {
             return updateConfigurationItemAsync(type, scope, code, key, updateConfigurationItem, userId, _callback);
+        }
+
+        /**
+         * Execute updateConfigurationItem request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration item exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationItem> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateConfigurationItemAsync(type, scope, code, key, updateConfigurationItem, userId, _callback, opts);
         }
     }
 
@@ -2573,6 +3463,10 @@ public class ConfigurationSetsApi {
         return new APIupdateConfigurationItemRequest(type, scope, code, key, updateConfigurationItem);
     }
     private okhttp3.Call updateConfigurationSetCall(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback _callback) throws ApiException {
+        return updateConfigurationSetCall(type, scope, code, updateConfigurationSet, userId,  _callback, new ConfigurationOptions());
+    }
+
+    private okhttp3.Call updateConfigurationSetCall(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2626,11 +3520,11 @@ public class ConfigurationSetsApi {
         }
 
         String[] localVarAuthNames = new String[] { "oauth2" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback, opts);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateConfigurationSetValidateBeforeCall(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateConfigurationSetValidateBeforeCall(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback _callback, ConfigurationOptions opts) throws ApiException {
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling updateConfigurationSet(Async)");
@@ -2651,20 +3545,34 @@ public class ConfigurationSetsApi {
             throw new ApiException("Missing the required parameter 'updateConfigurationSet' when calling updateConfigurationSet(Async)");
         }
 
-        return updateConfigurationSetCall(type, scope, code, updateConfigurationSet, userId, _callback);
+        return updateConfigurationSetCall(type, scope, code, updateConfigurationSet, userId, _callback, opts);
 
     }
 
 
     private ApiResponse<ConfigurationSet> updateConfigurationSetWithHttpInfo(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId) throws ApiException {
-        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, null);
+        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, null, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    private ApiResponse<ConfigurationSet> updateConfigurationSetWithHttpInfo(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, ConfigurationOptions opts) throws ApiException {
+        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, null, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     private okhttp3.Call updateConfigurationSetAsync(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback<ConfigurationSet> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, _callback);
+        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, _callback, new ConfigurationOptions());
+        Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    private okhttp3.Call updateConfigurationSetAsync(String type, String scope, String code, UpdateConfigurationSet updateConfigurationSet, String userId, final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+
+        okhttp3.Call localVarCall = updateConfigurationSetValidateBeforeCall(type, scope, code, updateConfigurationSet, userId, _callback, opts);
         Type localVarReturnType = new TypeToken<ConfigurationSet>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -2731,6 +3639,24 @@ public class ConfigurationSetsApi {
         }
 
         /**
+         * Execute updateConfigurationSet request. Use any specified configuration options to override any other configuration for this request only.
+         * @return ConfigurationSet
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ConfigurationSet execute(ConfigurationOptions opts) throws ApiException {
+            ApiResponse<ConfigurationSet> localVarResp = updateConfigurationSetWithHttpInfo(type, scope, code, updateConfigurationSet, userId, opts);
+            return localVarResp.getData();
+        }
+
+        /**
          * Execute updateConfigurationSet request with HTTP info returned
          * @return ApiResponse&lt;ConfigurationSet&gt;
          * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -2745,6 +3671,23 @@ public class ConfigurationSetsApi {
          */
         public ApiResponse<ConfigurationSet> executeWithHttpInfo() throws ApiException {
             return updateConfigurationSetWithHttpInfo(type, scope, code, updateConfigurationSet, userId);
+        }
+
+        /**
+         * Execute updateConfigurationSet request with HTTP info returned. Use any specified configuration options to override any other configuration for this request only.
+         * @return ApiResponse&lt;ConfigurationSet&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<ConfigurationSet> executeWithHttpInfo(ConfigurationOptions opts) throws ApiException {
+            return updateConfigurationSetWithHttpInfo(type, scope, code, updateConfigurationSet, userId, opts);
         }
 
         /**
@@ -2763,6 +3706,24 @@ public class ConfigurationSetsApi {
          */
         public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback) throws ApiException {
             return updateConfigurationSetAsync(type, scope, code, updateConfigurationSet, userId, _callback);
+        }
+
+        /**
+         * Execute updateConfigurationSet request (asynchronously). Use any specified configuration options to override any other configuration for this request only.
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table summary="Response Details" border="1">
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Success </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> The details of the input related failure </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> No configuration set exists with the provided identifiers </td><td>  -  </td></tr>
+            <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<ConfigurationSet> _callback, ConfigurationOptions opts) throws ApiException {
+            return updateConfigurationSetAsync(type, scope, code, updateConfigurationSet, userId, _callback, opts);
         }
     }
 

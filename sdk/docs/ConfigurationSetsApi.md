@@ -57,6 +57,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -64,6 +72,9 @@ public class ConfigurationSetsApiExample {
         CreateConfigurationItem createConfigurationItem = new CreateConfigurationItem(); // CreateConfigurationItem | The data to create a configuration item
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationSet result = apiInstance.addConfigurationToSet(type, scope, code, createConfigurationItem, userId).execute(opts);
+
             ConfigurationSet result = apiInstance.addConfigurationToSet(type, scope, code, createConfigurationItem, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -144,8 +155,19 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.checkAccessTokenExists().execute(opts);
+
             apiInstance.checkAccessTokenExists().execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling ConfigurationSetsApi#checkAccessTokenExists");
@@ -217,10 +239,21 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         CreateConfigurationSet createConfigurationSet = new CreateConfigurationSet(); // CreateConfigurationSet | The data to create a configuration set
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationSet result = apiInstance.createConfigurationSet(createConfigurationSet, userId).execute(opts);
+
             ConfigurationSet result = apiInstance.createConfigurationSet(createConfigurationSet, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -297,8 +330,19 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.deleteAccessToken().execute(opts);
+
             apiInstance.deleteAccessToken().execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling ConfigurationSetsApi#deleteAccessToken");
@@ -369,6 +413,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -376,6 +428,9 @@ public class ConfigurationSetsApiExample {
         String key = "key_example"; // String | The key that identifies a configuration item
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.deleteConfigurationItem(type, scope, code, key, userId).execute(opts);
+
             apiInstance.deleteConfigurationItem(type, scope, code, key, userId).execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationItem");
@@ -455,12 +510,23 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
         String code = "code_example"; // String | The code that identifies a configuration set
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // apiInstance.deleteConfigurationSet(type, scope, code, userId).execute(opts);
+
             apiInstance.deleteConfigurationSet(type, scope, code, userId).execute();
         } catch (ApiException e) {
             System.err.println("Exception when calling ConfigurationSetsApi#deleteConfigurationSet");
@@ -539,9 +605,20 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String action = "action_example"; // String | action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
         try {
+            // uncomment the below to set overrides at the request level
+            // PersonalAccessToken result = apiInstance.generateAccessToken(action).execute(opts);
+
             PersonalAccessToken result = apiInstance.generateAccessToken(action).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -617,6 +694,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -625,6 +710,9 @@ public class ConfigurationSetsApiExample {
         Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationItem result = apiInstance.getConfigurationItem(type, scope, code, key, reveal, userId).execute(opts);
+
             ConfigurationItem result = apiInstance.getConfigurationItem(type, scope, code, key, reveal, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -706,6 +794,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -713,6 +809,9 @@ public class ConfigurationSetsApiExample {
         Boolean reveal = true; // Boolean | Whether to reveal the secrets. This is only available when the userId query setting has not been specified.
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationSet result = apiInstance.getConfigurationSet(type, scope, code, reveal, userId).execute(opts);
+
             ConfigurationSet result = apiInstance.getConfigurationSet(type, scope, code, reveal, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -793,11 +892,22 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String code = "code_example"; // String | The code that identifies a system configuration set
         String key = "key_example"; // String | The key that identifies a system configuration item
         Boolean reveal = true; // Boolean | Whether to reveal the secrets
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfConfigurationItem result = apiInstance.getSystemConfigurationItems(code, key, reveal).execute(opts);
+
             ResourceListOfConfigurationItem result = apiInstance.getSystemConfigurationItems(code, key, reveal).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -876,10 +986,21 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String code = "code_example"; // String | The code that identifies a system configuration set
         Boolean reveal = true; // Boolean | Whether to reveal the secrets
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfConfigurationSet result = apiInstance.getSystemConfigurationSets(code, reveal).execute(opts);
+
             ResourceListOfConfigurationSet result = apiInstance.getSystemConfigurationSets(code, reveal).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -957,10 +1078,21 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ResourceListOfConfigurationSetSummary result = apiInstance.listConfigurationSets(type, userId).execute(opts);
+
             ResourceListOfConfigurationSetSummary result = apiInstance.listConfigurationSets(type, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -1037,6 +1169,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -1045,6 +1185,9 @@ public class ConfigurationSetsApiExample {
         UpdateConfigurationItem updateConfigurationItem = new UpdateConfigurationItem(); // UpdateConfigurationItem | The data to update a configuration item
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationItem result = apiInstance.updateConfigurationItem(type, scope, code, key, updateConfigurationItem, userId).execute(opts);
+
             ConfigurationItem result = apiInstance.updateConfigurationItem(type, scope, code, key, updateConfigurationItem, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {
@@ -1126,6 +1269,14 @@ public class ConfigurationSetsApiExample {
             "}");
         }
 
+        // uncomment the below to use configuration overrides
+        // ConfigurationOptions opts = new ConfigurationOptions();
+        // opts.setTotalTimeoutMs(2000);
+        
+        // uncomment the below to use an api factory with overrides
+        // ApiFactory apiFactory = ApiFactoryBuilder.build(fileName, opts);
+        // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
+
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
         String type = "type_example"; // String | Whether the configuration set is Personal or Shared
         String scope = "scope_example"; // String | The scope that identifies a configuration set
@@ -1133,6 +1284,9 @@ public class ConfigurationSetsApiExample {
         UpdateConfigurationSet updateConfigurationSet = new UpdateConfigurationSet(); // UpdateConfigurationSet | The data to update a configuration set
         String userId = "userId_example"; // String | Feature that allows Administrators to administer personal settings (but never reveal the value of secrets) of a specific user.
         try {
+            // uncomment the below to set overrides at the request level
+            // ConfigurationSet result = apiInstance.updateConfigurationSet(type, scope, code, updateConfigurationSet, userId).execute(opts);
+
             ConfigurationSet result = apiInstance.updateConfigurationSet(type, scope, code, updateConfigurationSet, userId).execute();
             System.out.println(result.toJson());
         } catch (ApiException e) {

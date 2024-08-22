@@ -16,7 +16,7 @@ public class ApiFactory {
     /**
     * The unique package that hosts all the _configuration API classes
     */
-    public static final String API_PACKAGE = "com.finbourne._configuration.api";
+    public static final String API_PACKAGE = "com.finbourne.configuration.api";
 
     private final ApiClient apiClient;
     private final Map<Class, Object> initialisedApis;
@@ -42,7 +42,7 @@ public class ApiFactory {
     * @param <T> _configuration API type
     * @return instance of the _configuration API type configured as per the {@link ApiClient}
     *
-    * @throws UnsupportedOperationException is the apiClass does not belong to the import com.finbourne._configuration.api package or
+    * @throws UnsupportedOperationException is the apiClass does not belong to the import com.finbourne.configuration.api package or
     * if the class has no constructor that accepts an {@link ApiClient} parameter.
     */
     public synchronized <T> T build(Class<T> apiClass) {
