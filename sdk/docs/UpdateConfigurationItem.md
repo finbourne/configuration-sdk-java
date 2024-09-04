@@ -10,6 +10,7 @@ The information required to update a configuration item
 |------------ | ------------- | ------------- | -------------|
 |**value** | **String** | The new value of the configuration item |  |
 |**description** | **String** | The new description of the configuration item |  [optional] |
+|**blockReveal** | **Boolean** | The requested new state of BlockReveal |  [optional] |
 
 
 

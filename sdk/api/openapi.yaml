@@ -6,7 +6,7 @@ info:
     url: https://www.finbourne.com
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.546
+  version: 0.1.548
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -1659,24 +1659,28 @@ paths:
             example:
               value: updated password
               description: Password for system A and B
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/UpdateConfigurationItem'
           application/json:
             example:
               value: updated password
               description: Password for system A and B
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/UpdateConfigurationItem'
           text/json:
             example:
               value: updated password
               description: Password for system A and B
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/UpdateConfigurationItem'
           application/*+json:
             example:
               value: updated password
               description: Password for system A and B
+              blockReveal: false
             schema:
               $ref: '#/components/schemas/UpdateConfigurationItem'
         description: The data to update a configuration item
@@ -3169,6 +3173,7 @@ components:
       example:
         description: description
         value: value
+        blockReveal: true
       properties:
         value:
           description: The new value of the configuration item
@@ -3182,6 +3187,9 @@ components:
           minLength: 0
           nullable: true
           type: string
+        blockReveal:
+          description: The requested new state of BlockReveal
+          type: boolean
       required:
       - value
       type: object

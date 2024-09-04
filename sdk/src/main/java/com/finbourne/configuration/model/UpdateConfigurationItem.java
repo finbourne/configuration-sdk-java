@@ -58,6 +58,10 @@ public class UpdateConfigurationItem {
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
+  public static final String SERIALIZED_NAME_BLOCK_REVEAL = "blockReveal";
+  @SerializedName(SERIALIZED_NAME_BLOCK_REVEAL)
+  private Boolean blockReveal;
+
   public UpdateConfigurationItem() {
   }
 
@@ -103,6 +107,27 @@ public class UpdateConfigurationItem {
   }
 
 
+  public UpdateConfigurationItem blockReveal(Boolean blockReveal) {
+    
+    this.blockReveal = blockReveal;
+    return this;
+  }
+
+   /**
+   * The requested new state of BlockReveal
+   * @return blockReveal
+  **/
+  @jakarta.annotation.Nullable
+  public Boolean getBlockReveal() {
+    return blockReveal;
+  }
+
+
+  public void setBlockReveal(Boolean blockReveal) {
+    this.blockReveal = blockReveal;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -114,7 +139,8 @@ public class UpdateConfigurationItem {
     }
     UpdateConfigurationItem updateConfigurationItem = (UpdateConfigurationItem) o;
     return Objects.equals(this.value, updateConfigurationItem.value) &&
-        Objects.equals(this.description, updateConfigurationItem.description);
+        Objects.equals(this.description, updateConfigurationItem.description) &&
+        Objects.equals(this.blockReveal, updateConfigurationItem.blockReveal);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -123,7 +149,7 @@ public class UpdateConfigurationItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, description);
+    return Objects.hash(value, description, blockReveal);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -139,6 +165,7 @@ public class UpdateConfigurationItem {
     sb.append("class UpdateConfigurationItem {\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    blockReveal: ").append(toIndentedString(blockReveal)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -163,6 +190,7 @@ public class UpdateConfigurationItem {
     openapiFields = new HashSet<String>();
     openapiFields.add("value");
     openapiFields.add("description");
+    openapiFields.add("blockReveal");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
