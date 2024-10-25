@@ -13,7 +13,7 @@ info:
     \ impersonated user does not exist| |\n"
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.555
+  version: 0.1.557
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
