@@ -17,9 +17,10 @@ info:
     | <a name="689">689</a>|The supplied pagination token is invalid| |
     | <a name="692">692</a>|This endpoint does not support impersonation| |
     | <a name="871">871</a>|The specified impersonated user does not exist| |
+    | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.576
+  version: 0.1.590
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -37,6 +38,8 @@ info:
       title: This endpoint does not support impersonation
     "871":
       title: The specified impersonated user does not exist
+    "939":
+      title: Blocked by a Network Zone
   x-fbn-description: "The Configuration Store serves as a central repository for securely\
     \ storing and managing LUSID secrets and parameters, enabling seamless integration\
     \ and secure secret sharing within a LUSID environment."
@@ -68,7 +71,7 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
-          description: Success
+          description: OK
         default:
           content:
             application/json:
@@ -140,7 +143,7 @@ paths:
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationSetSummary'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -397,7 +400,7 @@ paths:
                 ref: config://personal/me/012345
               schema:
                 $ref: '#/components/schemas/PersonalAccessToken'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -565,7 +568,7 @@ paths:
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationSet'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -727,7 +730,7 @@ paths:
                 links: []
               schema:
                 $ref: '#/components/schemas/ResourceListOfConfigurationItem'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -972,7 +975,7 @@ paths:
                 type: shared
               schema:
                 $ref: '#/components/schemas/ConfigurationSet'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -1143,7 +1146,7 @@ paths:
                 type: shared
               schema:
                 $ref: '#/components/schemas/ConfigurationSet'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -1588,7 +1591,7 @@ paths:
                 blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -1763,7 +1766,7 @@ paths:
                 blockReveal: false
               schema:
                 $ref: '#/components/schemas/ConfigurationItem'
-          description: Success
+          description: OK
         "400":
           content:
             text/plain:
@@ -2450,6 +2453,7 @@ components:
       properties:
         identifier:
           additionalProperties:
+            nullable: true
             type: string
           minLength: 1
           type: object
