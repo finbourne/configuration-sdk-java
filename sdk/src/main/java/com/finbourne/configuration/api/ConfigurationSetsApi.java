@@ -1670,7 +1670,7 @@ public class ConfigurationSetsApi {
 
         /**
          * Set action
-         * @param action action&#x3D;regenerate &#x3D; Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action&#x3D;ensure &#x3D; If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action&#x3D;default &#x3D; If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour. (optional)
+         * @param action action&#x3D;regenerate &#x3D; Even if an existing parameter exists, forcibly regenerate a new one (deleting the old) action&#x3D;ensure &#x3D; If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one. action&#x3D;default &#x3D; If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour. (optional)
          * @return APIgenerateAccessTokenRequest
          */
         public APIgenerateAccessTokenRequest action(String action) {
@@ -2643,7 +2643,7 @@ public class ConfigurationSetsApi {
     }
 
     /**
-     * [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set  All users have access to this endpoint
+     * [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set All users have access to this endpoint
      * 
      * @param code The code that identifies a system configuration set (required)
      * @param key The key that identifies a system configuration item (required)
@@ -2899,7 +2899,7 @@ public class ConfigurationSetsApi {
     }
 
     /**
-     * GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
+     * GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed All users have access to this endpoint
      * 
      * @param code The code that identifies a system configuration set (required)
      * @return APIgetSystemConfigurationSetsRequest

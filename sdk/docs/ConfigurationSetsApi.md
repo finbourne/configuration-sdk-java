@@ -13,8 +13,8 @@ All URIs are relative to *https://fbn-prd.lusid.com/configuration*
 | [**generateAccessToken**](ConfigurationSetsApi.md#generateAccessToken) | **PUT** /api/sets/personal/me | [DEPRECATED] GenerateAccessToken: Generate a Personal Access Token for the current user and stores it in the me token |
 | [**getConfigurationItem**](ConfigurationSetsApi.md#getConfigurationItem) | **GET** /api/sets/{type}/{scope}/{code}/items/{key} | GetConfigurationItem: Get the specific configuration item within an existing set |
 | [**getConfigurationSet**](ConfigurationSetsApi.md#getConfigurationSet) | **GET** /api/sets/{type}/{scope}/{code} | GetConfigurationSet: Get a configuration set, including all the associated metadata. By default secrets will not be revealed |
-| [**getSystemConfigurationItems**](ConfigurationSetsApi.md#getSystemConfigurationItems) | **GET** /api/sets/system/{code}/items/{key} | [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set  All users have access to this endpoint |
-| [**getSystemConfigurationSets**](ConfigurationSetsApi.md#getSystemConfigurationSets) | **GET** /api/sets/system/{code} | GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint |
+| [**getSystemConfigurationItems**](ConfigurationSetsApi.md#getSystemConfigurationItems) | **GET** /api/sets/system/{code}/items/{key} | [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set All users have access to this endpoint |
+| [**getSystemConfigurationSets**](ConfigurationSetsApi.md#getSystemConfigurationSets) | **GET** /api/sets/system/{code} | GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed All users have access to this endpoint |
 | [**listConfigurationSets**](ConfigurationSetsApi.md#listConfigurationSets) | **GET** /api/sets | [EARLY ACCESS] ListConfigurationSets: List all configuration sets summaries (I.e. list of scope/code combinations available) |
 | [**updateConfigurationItem**](ConfigurationSetsApi.md#updateConfigurationItem) | **PUT** /api/sets/{type}/{scope}/{code}/items/{key} | [EARLY ACCESS] UpdateConfigurationItem: Update a configuration item&#39;s value and/or description |
 | [**updateConfigurationSet**](ConfigurationSetsApi.md#updateConfigurationSet) | **PUT** /api/sets/{type}/{scope}/{code} | [EARLY ACCESS] UpdateConfigurationSet: Update the description of a configuration set |
@@ -614,7 +614,7 @@ public class ConfigurationSetsApiExample {
         // ConfigurationSetsApi apiInstance = apiFactory.build(ConfigurationSetsApi.class);
 
         ConfigurationSetsApi apiInstance = ApiFactoryBuilder.build(fileName).build(ConfigurationSetsApi.class);
-        String action = "action_example"; // String | action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
+        String action = "action_example"; // String | action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old) action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one. action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
         try {
             // uncomment the below to set overrides at the request level
             // PersonalAccessToken result = apiInstance.generateAccessToken(action).execute(opts);
@@ -636,7 +636,7 @@ public class ConfigurationSetsApiExample {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **action** | **String**| action&#x3D;regenerate &#x3D; Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)  action&#x3D;ensure &#x3D; If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.  action&#x3D;default &#x3D; If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour. | [optional] |
+| **action** | **String**| action&#x3D;regenerate &#x3D; Even if an existing parameter exists, forcibly regenerate a new one (deleting the old) action&#x3D;ensure &#x3D; If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one. action&#x3D;default &#x3D; If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour. | [optional] |
 
 ### Return type
 
@@ -860,7 +860,7 @@ public class ConfigurationSetsApiExample {
 
 > ResourceListOfConfigurationItem getSystemConfigurationItems(code, key, reveal)
 
-[EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set  All users have access to this endpoint
+[EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set All users have access to this endpoint
 
 ### Example
 
@@ -954,7 +954,7 @@ public class ConfigurationSetsApiExample {
 
 > ResourceListOfConfigurationSet getSystemConfigurationSets(code, reveal)
 
-GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed  All users have access to this endpoint
+GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed All users have access to this endpoint
 
 ### Example
 

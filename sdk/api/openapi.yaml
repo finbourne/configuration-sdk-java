@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   contact:
     email: info@finbourne.com
@@ -20,7 +20,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.612
+  version: 0.1.613
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -359,13 +359,10 @@ paths:
     put:
       operationId: GenerateAccessToken
       parameters:
-      - description: "action=regenerate = Even if an existing parameter exists, forcibly\
-          \ regenerate a new one (deleting the old)\r\naction=ensure = If no parameter\
-          \ exists, create one. If one does already exist, verify that it is still\
-          \ valid (call a service?), and if so, return it. If it is not still valid,\
-          \ then regenerate a new one.\r\naction=default = If a parameter exists,\
-          \ return it. If not then create one. If this parameter is not provided,\
-          \ this is the default behaviour."
+      - description: |-
+          action=regenerate = Even if an existing parameter exists, forcibly regenerate a new one (deleting the old)
+          action=ensure = If no parameter exists, create one. If one does already exist, verify that it is still valid (call a service?), and if so, return it. If it is not still valid, then regenerate a new one.
+          action=default = If a parameter exists, return it. If not then create one. If this parameter is not provided, this is the default behaviour.
         explode: true
         in: query
         name: action
@@ -601,9 +598,9 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "GetSystemConfigurationSets: Get the specified system configuration\
-        \ sets, including all their associated metadata. By default secrets will not\
-        \ be revealed\r\nAll users have access to this endpoint"
+      summary: |-
+        GetSystemConfigurationSets: Get the specified system configuration sets, including all their associated metadata. By default secrets will not be revealed
+        All users have access to this endpoint
       tags:
       - ConfigurationSets
       x-fbn-apistatus: Stable
@@ -763,9 +760,9 @@ paths:
           description: Error response
       security:
       - oauth2: []
-      summary: "[EARLY ACCESS] GetSystemConfigurationItems: Get the specific system\
-        \ configuration items within a system set\r\nAll users have access to this\
-        \ endpoint"
+      summary: |-
+        [EARLY ACCESS] GetSystemConfigurationItems: Get the specific system configuration items within a system set
+        All users have access to this endpoint
       tags:
       - ConfigurationSets
       x-fbn-apistatus: EarlyAccess
@@ -2334,19 +2331,21 @@ components:
           pattern: "^[^_][a-zA-Z0-9\\-_]*$"
           type: string
         value:
-          description: "The value of the new configuration item\r\n \r\nThe maximum\
-            \ size for secrets is 4KB and for text values is 2MB"
+          description: "The value of the new configuration item\n \nThe maximum size\
+            \ for secrets is 4KB and for text values is 2MB"
           maxLength: 2000000
           minLength: 1
           pattern: (?s).*
           type: string
         valueType:
-          description: "The type (text, number, boolean, textCollection, numberCollection)\
-            \ of the new configuration item's value.\r\nThe validation for each type\
-            \ is as follows:\r\n- text: any value\r\n- number: double (e.g. \"5.5\"\
-            )\r\n- boolean: true/false\r\n- textCollection: comma separated list (e.g.\
-            \ \"a,b,c\")\r\n- numberCollection: comma separated list of doubles (e.g.\
-            \ \"1,2,3\")"
+          description: |-
+            The type (text, number, boolean, textCollection, numberCollection) of the new configuration item's value.
+            The validation for each type is as follows:
+            - text: any value
+            - number: double (e.g. "5.5")
+            - boolean: true/false
+            - textCollection: comma separated list (e.g. "a,b,c")
+            - numberCollection: comma separated list of doubles (e.g. "1,2,3")
           nullable: true
           type: string
         isSecret:
