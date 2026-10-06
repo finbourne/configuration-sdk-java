@@ -20,7 +20,7 @@ info:
     | <a name="939">939</a>|Blocked by a Network Zone| |
   termsOfService: https://www.finbourne.com/legal/terms-conditions
   title: FINBOURNE ConfigurationService API
-  version: 0.1.655
+  version: 0.1.665
   x-logo:
     url: https://www.lusid.com/app/assets/logo_white.png
     backgroundColor: '#415464'
@@ -85,6 +85,88 @@ paths:
       tags:
       - Application Metadata
       x-fbn-apistatus: EarlyAccess
+      x-accepts: application/json
+  /api/metadata/endpoints:
+    get:
+      description: "Get the name of the application and the operation, HTTP method,\
+        \ path, status, summary and description of each of its API endpoints"
+      operationId: ListApiEndpoints
+      responses:
+        "200":
+          content:
+            text/plain:
+              example:
+                application: configurationstore
+                endpoints:
+                - operation: GetConfigurationSet
+                  httpMethod: GET
+                  path: "/configuration/api/sets/{type}/{scope}/{code}"
+                  status: Stable
+                  summary: "Get a configuration set, including all the associated\
+                    \ metadata. By default secrets will not be revealed"
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /configuration/api/metadata/access/resources
+                  status: EarlyAccess
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/configuration/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+            application/json:
+              example:
+                application: configurationstore
+                endpoints:
+                - operation: GetConfigurationSet
+                  httpMethod: GET
+                  path: "/configuration/api/sets/{type}/{scope}/{code}"
+                  status: Stable
+                  summary: "Get a configuration set, including all the associated\
+                    \ metadata. By default secrets will not be revealed"
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /configuration/api/metadata/access/resources
+                  status: EarlyAccess
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/configuration/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+            text/json:
+              example:
+                application: configurationstore
+                endpoints:
+                - operation: GetConfigurationSet
+                  httpMethod: GET
+                  path: "/configuration/api/sets/{type}/{scope}/{code}"
+                  status: Stable
+                  summary: "Get a configuration set, including all the associated\
+                    \ metadata. By default secrets will not be revealed"
+                - operation: ListAccessControlledResources
+                  httpMethod: GET
+                  path: /configuration/api/metadata/access/resources
+                  status: EarlyAccess
+                  summary: Get resources available for access control
+                  description: Get the comprehensive set of resources that are available
+                    for access control
+                href: https://example.lusid.com/configuration/api/metadata/endpoints
+              schema:
+                $ref: '#/components/schemas/ServiceApiEndpoints'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "ListApiEndpoints: Get the API endpoints available"
+      tags:
+      - Application Metadata
+      x-fbn-apistatus: Stable
       x-accepts: application/json
   /api/sets:
     get:
@@ -2036,6 +2118,38 @@ components:
       - entity
       - scope
       type: object
+    ApiEndpoint:
+      additionalProperties: false
+      example:
+        summary: summary
+        path: path
+        description: description
+        httpMethod: httpMethod
+        operation: operation
+        status: status
+      properties:
+        operation:
+          nullable: true
+          type: string
+        httpMethod:
+          minLength: 1
+          type: string
+        path:
+          minLength: 1
+          type: string
+        status:
+          nullable: true
+          type: string
+        summary:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+      required:
+      - httpMethod
+      - path
+      type: object
     ConfigurationItem:
       additionalProperties: false
       description: The full version of the configuration item
@@ -3199,6 +3313,54 @@ components:
           type: string
       required:
       - values
+      type: object
+    ServiceApiEndpoints:
+      additionalProperties: false
+      example:
+        endpoints:
+        - summary: summary
+          path: path
+          description: description
+          httpMethod: httpMethod
+          operation: operation
+          status: status
+        - summary: summary
+          path: path
+          description: description
+          httpMethod: httpMethod
+          operation: operation
+          status: status
+        application: application
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        application:
+          minLength: 1
+          type: string
+        endpoints:
+          items:
+            $ref: '#/components/schemas/ApiEndpoint'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - application
+      - endpoints
       type: object
     UpdateConfigurationItem:
       additionalProperties: false

@@ -93,6 +93,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.AccessControlledAction.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.AccessControlledResource.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ActionId.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ApiEndpoint.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ConfigurationItem.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ConfigurationItemSummary.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ConfigurationSet.CustomTypeAdapterFactory());
@@ -110,6 +111,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ResourceListOfConfigurationItem.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ResourceListOfConfigurationSet.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ResourceListOfConfigurationSetSummary.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.ServiceApiEndpoints.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.UpdateConfigurationItem.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.finbourne.configuration.model.UpdateConfigurationSet.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
